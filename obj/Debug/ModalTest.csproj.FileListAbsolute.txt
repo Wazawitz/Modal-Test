@@ -1,0 +1,10 @@
+c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\bin\Debug\ModalTest.exe.config
+c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\bin\Debug\ModalTest.exe
+c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\bin\Debug\ModalTest.pdb
+c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\obj\Debug\ModalTest.csprojResolveAssemblyReference.cache
+c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\obj\Debug\ModalTest.Form1.resources
+c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\obj\Debug\ModalTest.Properties.Resources.resources
+c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\obj\Debug\ModalTest.csproj.GenerateResource.Cache
+c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\obj\Debug\ModalTest.csproj.CoreCompileInputs.cache
+c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\obj\Debug\ModalTest.exe
+c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\obj\Debug\ModalTest.pdb
