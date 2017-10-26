@@ -8,3 +8,13 @@ c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\obj
 c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\obj\Debug\ModalTest.csproj.CoreCompileInputs.cache
 c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\obj\Debug\ModalTest.exe
 c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\obj\Debug\ModalTest.pdb
+C:\Users\me\Documents\repos\Modal-Test\Desktop\bin\Debug\ModalTest.exe.config
+C:\Users\me\Documents\repos\Modal-Test\Desktop\bin\Debug\ModalTest.exe
+C:\Users\me\Documents\repos\Modal-Test\Desktop\bin\Debug\ModalTest.pdb
+C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.csprojResolveAssemblyReference.cache
+C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.Form1.resources
+C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.Properties.Resources.resources
+C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.csproj.GenerateResource.Cache
+C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.csproj.CoreCompileInputs.cache
+C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.exe
+C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.pdb

@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO;
 
 namespace ModalTest
 {
@@ -163,8 +164,16 @@ namespace ModalTest
 
         private void saveresults_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
-            //serialize to svc file
+            SaveFileDialog sf = new SaveFileDialog();
+
+            sf.Filter = "Comma separated values (*.csv)|*.csv|All files (*.*)|*.*";
+
+            if (sf.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllText(sf.FileName, String.Join(",", vot.Series[0].Points));
+            }
+
+            sf.Dispose();
         }
     }
 }
