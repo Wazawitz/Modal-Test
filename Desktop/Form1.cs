@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ModalTest
 {
@@ -170,10 +171,27 @@ namespace ModalTest
 
             if (sf.ShowDialog() == DialogResult.OK)
             {
-                File.WriteAllText(sf.FileName, String.Join(",", vot.Series[0].Points));
+                File.WriteAllText(sf.FileName, csvParse("milliseconds,voltage[]", vot.Series[0].Points));
             }
 
             sf.Dispose();
+        }
+
+        private string csvParse(string title, DataPointCollection points)
+        {
+            string csv = title;
+
+            for (int i = 0; i < points.Count; i++)
+            {
+                csv += "\n" + points[i].XValue;
+
+                for (int j = 0; j < points[i].YValues.Count(); j++)
+                {
+                    csv += "," + points[i].YValues[j];
+                }
+            }
+
+            return csv;
         }
     }
 }

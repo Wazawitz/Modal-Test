@@ -71,9 +71,10 @@
             // collectdata
             // 
             this.collectdata.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.collectdata.Location = new System.Drawing.Point(12, 12);
+            this.collectdata.Location = new System.Drawing.Point(9, 10);
+            this.collectdata.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.collectdata.Name = "collectdata";
-            this.collectdata.Size = new System.Drawing.Size(144, 27);
+            this.collectdata.Size = new System.Drawing.Size(108, 22);
             this.collectdata.TabIndex = 0;
             this.collectdata.Text = "Start data collection";
             this.collectdata.UseVisualStyleBackColor = true;
@@ -82,9 +83,10 @@
             // saveresults
             // 
             this.saveresults.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveresults.Location = new System.Drawing.Point(312, 12);
+            this.saveresults.Location = new System.Drawing.Point(234, 10);
+            this.saveresults.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.saveresults.Name = "saveresults";
-            this.saveresults.Size = new System.Drawing.Size(144, 27);
+            this.saveresults.Size = new System.Drawing.Size(108, 22);
             this.saveresults.TabIndex = 1;
             this.saveresults.Text = "Save results";
             this.saveresults.UseVisualStyleBackColor = true;
@@ -94,9 +96,10 @@
             // 
             this.stop.Enabled = false;
             this.stop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.stop.Location = new System.Drawing.Point(162, 12);
+            this.stop.Location = new System.Drawing.Point(122, 10);
+            this.stop.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.stop.Name = "stop";
-            this.stop.Size = new System.Drawing.Size(144, 27);
+            this.stop.Size = new System.Drawing.Size(108, 22);
             this.stop.TabIndex = 2;
             this.stop.Text = "Stop";
             this.stop.UseVisualStyleBackColor = true;
@@ -108,13 +111,14 @@
             this.psd.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.psd.Legends.Add(legend1);
-            this.psd.Location = new System.Drawing.Point(501, 21);
+            this.psd.Location = new System.Drawing.Point(376, 17);
+            this.psd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.psd.Name = "psd";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.psd.Series.Add(series1);
-            this.psd.Size = new System.Drawing.Size(450, 282);
+            this.psd.Size = new System.Drawing.Size(338, 229);
             this.psd.TabIndex = 5;
             this.psd.Text = "PSD";
             title1.Name = "Title1";
@@ -127,13 +131,14 @@
             this.frf.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.frf.Legends.Add(legend2);
-            this.frf.Location = new System.Drawing.Point(6, 21);
+            this.frf.Location = new System.Drawing.Point(4, 17);
+            this.frf.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.frf.Name = "frf";
             series2.ChartArea = "ChartArea1";
             series2.Legend = "Legend1";
             series2.Name = "Series1";
             this.frf.Series.Add(series2);
-            this.frf.Size = new System.Drawing.Size(450, 282);
+            this.frf.Size = new System.Drawing.Size(338, 229);
             this.frf.TabIndex = 6;
             this.frf.Text = "FRF";
             title2.Name = "FFT";
@@ -144,9 +149,11 @@
             // 
             this.groupBox1.Controls.Add(this.frf);
             this.groupBox1.Controls.Add(this.psd);
-            this.groupBox1.Location = new System.Drawing.Point(13, 46);
+            this.groupBox1.Location = new System.Drawing.Point(10, 37);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(957, 332);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(718, 270);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sampled data";
@@ -155,9 +162,11 @@
             // 
             this.groupBox2.Controls.Add(this.accelerometer);
             this.groupBox2.Controls.Add(this.vot);
-            this.groupBox2.Location = new System.Drawing.Point(13, 384);
+            this.groupBox2.Location = new System.Drawing.Point(10, 312);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(957, 332);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Size = new System.Drawing.Size(718, 270);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Live";
@@ -168,14 +177,15 @@
             this.accelerometer.ChartAreas.Add(chartArea3);
             legend3.Name = "Legend1";
             this.accelerometer.Legends.Add(legend3);
-            this.accelerometer.Location = new System.Drawing.Point(6, 181);
+            this.accelerometer.Location = new System.Drawing.Point(4, 147);
+            this.accelerometer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.accelerometer.Name = "accelerometer";
             series3.ChartArea = "ChartArea1";
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
             series3.Legend = "Legend1";
             series3.Name = "Series1";
             this.accelerometer.Series.Add(series3);
-            this.accelerometer.Size = new System.Drawing.Size(945, 145);
+            this.accelerometer.Size = new System.Drawing.Size(709, 118);
             this.accelerometer.TabIndex = 5;
             this.accelerometer.Text = "Accelerometer";
             title3.Name = "Title1";
@@ -188,7 +198,8 @@
             this.vot.ChartAreas.Add(chartArea4);
             legend4.Name = "Legend1";
             this.vot.Legends.Add(legend4);
-            this.vot.Location = new System.Drawing.Point(6, 21);
+            this.vot.Location = new System.Drawing.Point(4, 17);
+            this.vot.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.vot.Name = "vot";
             series4.ChartArea = "ChartArea1";
             series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
@@ -196,7 +207,7 @@
             series4.Name = "DataSeries";
             series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
             this.vot.Series.Add(series4);
-            this.vot.Size = new System.Drawing.Size(945, 145);
+            this.vot.Size = new System.Drawing.Size(709, 118);
             this.vot.TabIndex = 6;
             title4.Name = "Title1";
             title4.Text = "Voltage over time";
@@ -204,18 +215,20 @@
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(462, 17);
+            this.label6.Location = new System.Drawing.Point(346, 14);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(58, 16);
+            this.label6.Size = new System.Drawing.Size(44, 13);
             this.label6.TabIndex = 10;
             this.label6.Text = "Bytes/s";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // samplerate
             // 
-            this.samplerate.Location = new System.Drawing.Point(521, 17);
+            this.samplerate.Location = new System.Drawing.Point(391, 14);
+            this.samplerate.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.samplerate.Name = "samplerate";
-            this.samplerate.Size = new System.Drawing.Size(54, 16);
+            this.samplerate.Size = new System.Drawing.Size(40, 13);
             this.samplerate.TabIndex = 9;
             this.samplerate.Text = "0";
             this.samplerate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -223,23 +236,26 @@
             // portlist
             // 
             this.portlist.FormattingEnabled = true;
-            this.portlist.Location = new System.Drawing.Point(724, 14);
+            this.portlist.Location = new System.Drawing.Point(543, 11);
+            this.portlist.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.portlist.Name = "portlist";
-            this.portlist.Size = new System.Drawing.Size(121, 24);
+            this.portlist.Size = new System.Drawing.Size(92, 21);
             this.portlist.TabIndex = 12;
             this.portlist.SelectedIndexChanged += new System.EventHandler(this.portlist_SelectedIndexChanged);
             // 
             // datadebugbox
             // 
-            this.datadebugbox.Location = new System.Drawing.Point(851, 15);
+            this.datadebugbox.Location = new System.Drawing.Point(638, 12);
+            this.datadebugbox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.datadebugbox.Name = "datadebugbox";
             this.datadebugbox.ReadOnly = true;
-            this.datadebugbox.Size = new System.Drawing.Size(119, 22);
+            this.datadebugbox.Size = new System.Drawing.Size(90, 20);
             this.datadebugbox.TabIndex = 9;
             // 
             // sampletimechooser
             // 
-            this.sampletimechooser.Location = new System.Drawing.Point(669, 15);
+            this.sampletimechooser.Location = new System.Drawing.Point(502, 12);
+            this.sampletimechooser.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.sampletimechooser.Maximum = new decimal(new int[] {
             10,
             0,
@@ -251,7 +267,7 @@
             0,
             0});
             this.sampletimechooser.Name = "sampletimechooser";
-            this.sampletimechooser.Size = new System.Drawing.Size(49, 22);
+            this.sampletimechooser.Size = new System.Drawing.Size(37, 20);
             this.sampletimechooser.TabIndex = 13;
             this.sampletimechooser.Value = new decimal(new int[] {
             1,
@@ -261,18 +277,19 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(576, 17);
+            this.label1.Location = new System.Drawing.Point(432, 14);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 16);
+            this.label1.Size = new System.Drawing.Size(75, 13);
             this.label1.TabIndex = 14;
             this.label1.Text = "Sample time:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(982, 716);
+            this.ClientSize = new System.Drawing.Size(736, 582);
             this.Controls.Add(this.sampletimechooser);
             this.Controls.Add(this.datadebugbox);
             this.Controls.Add(this.portlist);
@@ -285,6 +302,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.samplerate);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "Modal Tester";
             ((System.ComponentModel.ISupportInitialize)(this.psd)).EndInit();
