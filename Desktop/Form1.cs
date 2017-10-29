@@ -18,39 +18,26 @@ namespace ModalTest
     public partial class Form1 : Form
     {
         SerialPort SelectedPort = new SerialPort();
-        
-        int sampleratecounter = 0;
-
-        System.Windows.Forms.Timer sampletimer;
 
         Stopwatch graphsw = new Stopwatch();
-        double graphtime;
+        decimal graphtime;
         bool ShouldTime = false;
-
-        private object lockerobject = "";
 
         public Form1()
         {
+            Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
+            Thread.CurrentThread.Priority = ThreadPriority.Highest;
+
             InitializeComponent();
 
             portlist.DataSource = SerialPort.GetPortNames();
-        }
-
-        private void sampletimer_Tick(object sender, EventArgs e)
-        {
-            lock (lockerobject)
-            {
-                samplerate.Text = sampleratecounter.ToString();
-                sampleratecounter = 0;
-            }
-
         }
 
         private void portlist_SelectedIndexChanged(object sender, EventArgs e)
         {
             SerialPort s = new SerialPort();
             s.PortName = portlist.SelectedItem.ToString();
-            s.BaudRate = 9600;
+            s.BaudRate = 2000000;
             s.Parity = Parity.None;
             s.Handshake = Handshake.None;
             s.ReadTimeout = 500;
@@ -70,11 +57,6 @@ namespace ModalTest
             SerialPort sp = (SerialPort)sender;
             string data = sp.ReadLine();
 
-            lock (lockerobject)
-            {
-                sampleratecounter += Encoding.ASCII.GetByteCount(data);
-            }
-
             datadebugbox.PerformSafely(() =>
             {
                 datadebugbox.Text = data;
@@ -84,7 +66,8 @@ namespace ModalTest
             {
                 try
                 {
-                    vot.Series[0].Points.AddXY(graphtime, int.Parse(data));
+                    if (int.Parse(data) < 1024)
+                        vot.Series[0].Points.AddXY(graphtime, int.Parse(data));
                 }
                 catch (Exception) { }
             });
@@ -98,14 +81,8 @@ namespace ModalTest
             collectdata.Enabled = false;
             saveresults.Enabled = false;
 
-            if (sampletimer != null) sampletimer.Dispose();
-
             graphsw.Reset();
             graphtime = 0;
-
-            sampletimer = new System.Windows.Forms.Timer();
-            sampletimer.Interval = 1000;
-            sampletimer.Tick += sampletimer_Tick;
 
             //also reset graph stuff
             vot.Series[0].Points.Clear();
@@ -114,11 +91,13 @@ namespace ModalTest
             t.Interval = (int)sampletimechooser.Value;
             t.Tick += T_Tick;
 
+            Thread th = new Thread(StopwatchLoop);
+            th.Priority = ThreadPriority.Highest;
+
             try
             {
-                new Thread(StopwatchLoop).Start();
+                th.Start();
                 SelectedPort.Open();
-                sampletimer.Start();
                 graphsw.Start();
                 t.Start();
             }
@@ -135,7 +114,8 @@ namespace ModalTest
 
             while (ShouldTime)
             {
-                graphtime = (double)graphsw.ElapsedMilliseconds / 1000;
+                //graphtime = (double)graphsw.ElapsedMilliseconds / 1000;
+                graphtime = graphsw.ElapsedTicks / (decimal)Stopwatch.Frequency;
             }
         }
 
@@ -151,8 +131,6 @@ namespace ModalTest
             new Thread(() => {
                 SelectedPort.Close();
             }).Start();
-
-            sampletimer.Stop();
 
             ShouldTime = false;
 
@@ -171,7 +149,14 @@ namespace ModalTest
 
             if (sf.ShowDialog() == DialogResult.OK)
             {
-                File.WriteAllText(sf.FileName, csvParse("milliseconds,voltage[]", vot.Series[0].Points));
+                try
+                {
+                    File.WriteAllText(sf.FileName, csvParse("seconds,voltage", vot.Series[0].Points));
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Cannot access that file. Make sure it is not in use by another program.");
+                }
             }
 
             sf.Dispose();
@@ -182,14 +167,7 @@ namespace ModalTest
             string csv = title;
 
             for (int i = 0; i < points.Count; i++)
-            {
-                csv += "\n" + points[i].XValue;
-
-                for (int j = 0; j < points[i].YValues.Count(); j++)
-                {
-                    csv += "," + points[i].YValues[j];
-                }
-            }
+                csv += "\n" + points[i].XValue + "," + points[i].YValues[0];
 
             return csv;
         }
