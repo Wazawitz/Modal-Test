@@ -79,20 +79,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\me\\.nuget\\packages\\": {}
+    "C:\\Users\\geowa_000\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\me\\Documents\\repos\\Modal-Test\\Desktop\\ModalTest.csproj",
+      "projectUniqueName": "C:\\Users\\geowa_000\\Documents\\GitKraken\\Modal-Test\\Desktop\\ModalTest.csproj",
       "projectName": "ModalTest",
-      "projectPath": "C:\\Users\\me\\Documents\\repos\\Modal-Test\\Desktop\\ModalTest.csproj",
-      "packagesPath": "C:\\Users\\me\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\me\\Documents\\repos\\Modal-Test\\Desktop\\obj\\",
+      "projectPath": "C:\\Users\\geowa_000\\Documents\\GitKraken\\Modal-Test\\Desktop\\ModalTest.csproj",
+      "packagesPath": "C:\\Users\\geowa_000\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\geowa_000\\Documents\\GitKraken\\Modal-Test\\Desktop\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
-        "C:\\Users\\me\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\geowa_000\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -106,12 +106,6 @@
         "net45": {
           "projectReferences": {}
         }
-      }
-    },
-    "dependencies": {
-      "MathNet.Numerics": {
-        "target": "Package",
-        "version": "3.20.0"
       }
     },
     "frameworks": {

@@ -299,7 +299,10 @@ namespace ModalTest
 
             //double samplerate = 
 
-            for (int i = 1; i < samples.Length / 10; i++)
+
+
+            //put a choice for this /100
+            for (int i = 1; i < samples.Length / 100; i++)
             {
                 double magnitude = (2.0 / samples.Length) * (Math.Abs(Math.Sqrt(Math.Pow(samples[i].Real, 2) + Math.Pow(samples[i].Imaginary, 2))));
 
