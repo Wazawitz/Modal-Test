@@ -8,6 +8,7 @@ using System.IO;
 using System.Windows.Forms.DataVisualization.Charting;
 using MathNet.Numerics.Providers.FourierTransform;
 using System.Numerics;
+using System.Drawing;
 
 namespace ModalTest
 {
@@ -28,7 +29,11 @@ namespace ModalTest
 
             portlist.DataSource = SerialPort.GetPortNames();
 
-            frf.ChartAreas[0].Axes = vot.ChartAreas[0].Axes;
+            //frf.ChartAreas[0].Axes = vot.ChartAreas[0].Axes;
+
+            frf.ChartAreas[0].AxisX.Title = "Hz";
+            frf.ChartAreas[0].AxisY.Title = "Magnitude";
+            frf.ChartAreas[0].AxisX.Minimum = 0;
         }
 
         private void portlist_SelectedIndexChanged(object sender, EventArgs e)
@@ -273,17 +278,36 @@ namespace ModalTest
 
         public void DrawFRFMathNumericsFFT(DataPointCollection data)
         {
-            Complex[] c = new Complex[data.Count];
+            Complex[] samples = new Complex[data.Count];
 
-            for (int i = 0; i < c.Length; i++)
-                c[i] = new Complex(data[i].XValue, data[i].YValues[0]);
+            for (int i = 0; i < samples.Length; i++)
+                samples[i] = new Complex(data[i].XValue, data[i].YValues[0]);
+
+            double samplerate = samples.Length / samples[samples.Length - 1].Real;
+            double hzpersample = samplerate / samples.Length;
+
+            //TMessageBox("samplerate: " + samplerate + Environment.NewLine + "hz per sample: " + hzpersample);
 
             ManagedFourierTransformProvider fp = new ManagedFourierTransformProvider();
 
-            fp.Forward(c, FourierTransformScaling.SymmetricScaling);
+            fp.Forward(samples, FourierTransformScaling.NoScaling);
 
-            for (int i = 0; i < c.Length; i++)
-                frf.Series[0].Points.AddXY(c[i].Real, c[i].Imaginary);
+            //https://www.youtube.com/watch?v=DqQlNoQW00w at 27:18
+
+            //frf.ChartAreas[0].AxisX.Maximum = c.Length / 2;
+            frf.ChartAreas[0].AxisY.Maximum = 0;
+
+            //double samplerate = 
+
+            for (int i = 1; i < samples.Length / 10; i++)
+            {
+                double magnitude = (2.0 / samples.Length) * (Math.Abs(Math.Sqrt(Math.Pow(samples[i].Real, 2) + Math.Pow(samples[i].Imaginary, 2))));
+
+                if (magnitude > frf.ChartAreas[0].AxisY.Maximum)
+                    frf.ChartAreas[0].AxisY.Maximum = magnitude;
+
+                frf.Series[0].Points.AddXY(hzpersample * i, magnitude);
+            }
         }
 
         public static void TMessageBox(string str)
@@ -351,6 +375,58 @@ namespace ModalTest
             }
 
             return d;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sf = new SaveFileDialog();
+
+            sf.Filter = "Comma separated values (*.csv)|*.csv|All files (*.*)|*.*";
+
+            if (sf.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    File.WriteAllText(sf.FileName, ParseToCSV("Hz,magnitude", frf.Series[0].Points));
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Cannot access that file. Make sure it is not in use by another program.");
+                }
+            }
+
+            sf.Dispose();
+        }
+
+        Point? prevPosition = null;
+        ToolTip tooltip = new ToolTip();
+
+        void chart_MouseMove(object sender, MouseEventArgs e)
+        {
+            Chart c = sender as Chart;
+
+            var pos = e.Location;
+            if (prevPosition.HasValue && pos == prevPosition.Value)
+                return;
+            tooltip.RemoveAll();
+            prevPosition = pos;
+            var results = c.HitTest(pos.X, pos.Y, false,
+                                            ChartElementType.DataPoint);
+            foreach (DataPoint d in c.Series[0].Points)
+            {
+                if (d != null)
+                {
+                    var pointXPixel = c.ChartAreas[0].AxisX.ValueToPixelPosition(d.XValue);
+                    var pointYPixel = c.ChartAreas[0].AxisY.ValueToPixelPosition(d.YValues[0]);
+
+                    // check if the cursor is really close to the point (2 pixels around the point)
+                    if (Math.Abs(pos.X - pointXPixel) < 2)//&& Math.Abs(pos.Y - pointYPixel) < 2)
+                    {
+                        tooltip.Show("X=" + d.XValue + ", Y=" + d.YValues[0], c,
+                                        pos.X, pos.Y - 15);
+                    }
+                }
+            }
         }
     }
 }
