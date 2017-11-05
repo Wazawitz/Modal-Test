@@ -17,6 +17,18 @@ namespace ModalTest
             }
         }
 
+        public static void BeginPerformSafely(this Control target, Action action)
+        {
+            if (target.InvokeRequired)
+            {
+                target.BeginInvoke(action);
+            }
+            else
+            {
+                action();
+            }
+        }
+
         public static void PerformSafely<T1>(this Control target, Action<T1> action, T1 parameter)
         {
             if (target.InvokeRequired)
