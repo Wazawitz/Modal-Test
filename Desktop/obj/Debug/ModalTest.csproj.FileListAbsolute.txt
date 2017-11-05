@@ -28,3 +28,4 @@ C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\obj\Debug\ModalTest.cs
 C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\obj\Debug\ModalTest.csproj.CoreCompileInputs.cache
 C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\obj\Debug\ModalTest.exe
 C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\obj\Debug\ModalTest.pdb
+C:\Users\me\Documents\repos\Modal-Test\Desktop\bin\Debug\MathNet.Numerics.dll

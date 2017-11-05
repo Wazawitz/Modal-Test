@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO.Ports;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms.DataVisualization.Charting;
+using MathNet.Numerics.Providers.FourierTransform;
+using System.Numerics;
 
 namespace ModalTest
 {
@@ -31,6 +27,8 @@ namespace ModalTest
             InitializeComponent();
 
             portlist.DataSource = SerialPort.GetPortNames();
+
+            frf.ChartAreas[0].Axes = vot.ChartAreas[0].Axes;
         }
 
         private void portlist_SelectedIndexChanged(object sender, EventArgs e)
@@ -81,12 +79,7 @@ namespace ModalTest
             collectdata.Enabled = false;
             saveresults.Enabled = false;
 
-            graphsw.Reset();
-            graphtime = 0;
-
-            //also reset graph stuff
-            vot.Series[0].Points.Clear();
-            frf.Series[0].Points.Clear();
+            resetgraphstuff();
 
             System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
             t.Interval = (int)sampletimechooser.Value;
@@ -117,6 +110,15 @@ namespace ModalTest
                 MessageBox.Show("That port is already in use!");
                 stop_Click(sender, e);
             }
+        }
+
+        private void resetgraphstuff()
+        {
+            graphsw.Reset();
+            graphtime = 0;
+            
+            vot.Series[0].Points.Clear();
+            frf.Series[0].Points.Clear();
         }
 
         private void correctionloop()
@@ -210,8 +212,6 @@ namespace ModalTest
         
         private void stop_Click(object sender, EventArgs e)
         {
-            //SelectedPort.DataReceived -= SelectedPort_DataReceived;
-
             if (SelectedPort.IsOpen)
                 SelectedPort.Close();
 
@@ -225,16 +225,19 @@ namespace ModalTest
 
             CorrectErrors();
 
-            new Thread(() =>
+            if (vot.Series[0].Points.Count > 0)
             {
-                frf.BeginPerformSafely(() =>
+                new Thread(() =>
                 {
-                    vot.BeginPerformSafely(() =>
+                    frf.BeginPerformSafely(() =>
                     {
-                        DrawFRFOLD(vot.Series[0].Points);
+                        vot.BeginPerformSafely(() =>
+                        {
+                            DrawFRFMathNumericsFFT(vot.Series[0].Points);
+                        });
                     });
-                });
-            }).Start();
+                }).Start();
+            }
         }
 
         private void saveresults_Click(object sender, EventArgs e)
@@ -268,57 +271,19 @@ namespace ModalTest
             return csv;
         }
 
-        //add load button to load data
-        //add process button to process data
-
-
-
-        //input data as time(decimal) and voltage(int)
-        public void DrawFRF(DataPointCollection data)
+        public void DrawFRFMathNumericsFFT(DataPointCollection data)
         {
             Complex[] c = new Complex[data.Count];
 
-            for (int i = 0; i < data.Count; i++)
+            for (int i = 0; i < c.Length; i++)
                 c[i] = new Complex(data[i].XValue, data[i].YValues[0]);
 
-            c = Complex.RecursiveFFT(c);
+            ManagedFourierTransformProvider fp = new ManagedFourierTransformProvider();
+
+            fp.Forward(c, FourierTransformScaling.SymmetricScaling);
 
             for (int i = 0; i < c.Length; i++)
-            {
-                frf.Series[0].Points.AddXY(c[i].re, c[i].im);
-            }
-        }
-
-        public void DrawFRFOLD(DataPointCollection data)
-        {
-            int m = 1;
-
-            while (m < data.Count)
-                m = m << 1;
-
-            double[] x = new double[m];
-            double[] y = new double[m];
-
-            for (int i = 0; i < m; i++)
-            {
-                if (i < data.Count)
-                {
-                    x[i] = data[i].XValue;
-                    y[i] = data[i].YValues[0];
-                }
-                else
-                {
-                    y[i] = 0;
-                    x[i] = 0;
-                }
-            }
-
-            Complex.FFT(1, m, x, y);
-
-            for (int i = 0; i < x.Length; i++)
-            {
-                frf.Series[0].Points.AddXY(x[i], y[i]);
-            }
+                frf.Series[0].Points.AddXY(c[i].Real, c[i].Imaginary);
         }
 
         public static void TMessageBox(string str)
@@ -337,6 +302,8 @@ namespace ModalTest
                 try
                 {
                     List<DataPoint> d = ParseFromCSV(File.ReadAllText(sf.FileName));
+
+                    resetgraphstuff();
 
                     for (int i = 0; i < d.Count; i++)
                     {
