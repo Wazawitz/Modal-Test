@@ -9,112 +9,186 @@ using System.Windows.Forms.DataVisualization.Charting;
 using MathNet.Numerics.Providers.FourierTransform;
 using System.Numerics;
 using System.Drawing;
+using System.Management;
 
 namespace ModalTest
 {
-    public partial class Form1 : Form
+    //turn start and stop into a toggle, and make the space bar trigger it
+    //load csv: file contained these errors which were ignored ""
+    //generate wave, and have a resolution number which determines time steps, and time length, and controls to add sub waves
+    //turn load and save stuff into a file dropdown menu
+    //add control s support
+    //add realtime cpu usage toggle with warning
+    //add a function that essentially zeros the vibration wave, and then only displays differences above a certain limit. similar to a tear button on scale.
+    //add button to view csv raw data which uses a textbox window
+    //simulate sensor reading by reading from a file
+    //"export project or export dataset" to a folder that gets named by user, but all files are named according to their graphs like vot, frf and the likes
+
+    //make settings page with tons of settings
+    //frf max length in fraction like 1/2 or 1/10 with 1/2 being ultimate max
+    //vot max data length for live scrolling, currently at 5000
+    public partial class ModalTesterForm : Form
     {
         SerialPort SelectedPort = new SerialPort();
 
         Stopwatch graphsw = new Stopwatch();
         decimal graphtime;
-        bool ShouldTime = false;
+        bool LiveRecording = false;
+        bool DataRecording = false;
+        string lastportname = "";
 
-        public Form1()
+        public ModalTesterForm()
         {
             Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
-            Thread.CurrentThread.Priority = ThreadPriority.Highest;
+            Thread.CurrentThread.Priority = ThreadPriority.Normal;
 
             InitializeComponent();
 
-            portlist.DataSource = SerialPort.GetPortNames();
+            USBInsertHandler(this, null);
+            portlist_SelectedIndexChanged(this, null);
 
-            //frf.ChartAreas[0].Axes = vot.ChartAreas[0].Axes;
+            portlist.SelectedIndexChanged += portlist_SelectedIndexChanged;
 
-            frf.ChartAreas[0].AxisX.Title = "Hz";
-            frf.ChartAreas[0].AxisY.Title = "Magnitude";
             frf.ChartAreas[0].AxisX.Minimum = 0;
+            frf.ChartAreas[0].AxisY.Maximum = 1024;
+
+            SetupUSBInsertDetection();
+        }
+
+        private void SetupUSBInsertDetection()
+        {
+            ManagementScope scope = new ManagementScope("root\\CIMV2");
+            scope.Options.EnablePrivileges = true;
+
+            try
+            {
+                //usb insert detection
+                WqlEventQuery q = new WqlEventQuery();
+                q.EventClassName = "__InstanceCreationEvent";
+                q.WithinInterval = new TimeSpan(0, 0, 3);
+                q.Condition = "TargetInstance ISA 'Win32_USBControllerdevice'";
+                ManagementEventWatcher w = new ManagementEventWatcher(scope, q);
+                w.EventArrived += USBInsertHandler;
+                w.Start();
+
+                //usb remove detection
+                WqlEventQuery q2 = new WqlEventQuery();
+                q2.EventClassName = "__InstanceDeletionEvent";
+                q2.WithinInterval = new TimeSpan(0, 0, 3);
+                q2.Condition = "TargetInstance ISA 'Win32_USBControllerdevice'";
+                ManagementEventWatcher w2 = new ManagementEventWatcher(scope, q2);
+                w2.EventArrived += USBRemoveHandler;
+                w2.Start();
+            }
+            catch (Exception) { }
+        }
+
+        private void USBRemoveHandler(object sender, EventArrivedEventArgs e)
+        {
+            if (!SelectedPort.IsOpen)
+                GetAvailablePorts();
+        }
+
+        private void USBInsertHandler(object sender, EventArrivedEventArgs e)
+        {
+            if (!SelectedPort.IsOpen)
+                GetAvailablePorts();
+        }
+
+        private void GetAvailablePorts()
+        {
+            portlist.PerformSafely(() =>
+            {
+                List<string> names = new List<string>();
+
+                foreach (string s in SerialPort.GetPortNames())
+                    if (!names.Contains(s))
+                        names.Add(s);
+
+                portlist.DataSource = names;
+                portlist.SelectedIndex = portlist.Items.Count - 1;
+            });
         }
 
         private void portlist_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SerialPort s = new SerialPort();
-            s.PortName = portlist.SelectedItem.ToString();
-            s.BaudRate = 2000000;
-            s.Parity = Parity.None;
-            s.Handshake = Handshake.None;
-            s.ReadTimeout = 500;
-            s.WriteTimeout = 500;
-
-            //s.DataReceived += SelectedPort_DataReceived;
-
-            //SelectedPort.DataReceived -= SelectedPort_DataReceived;
-            
-            SelectedPort.Dispose();
-
-            SelectedPort = s;
-        }
-
-        private void SelectedPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            SerialPort sp = (SerialPort)sender;
-            string data = sp.ReadLine();
-
-            datadebugbox.PerformSafely(() =>
+            if (!DataRecording && portlist.SelectedItem.ToString() != lastportname)
             {
-                datadebugbox.Text = data;
-            });
+                LiveRecording = false;
 
-            vot.PerformSafely(() =>
-            {
+                Thread.Sleep(500);
+
+                lastportname = portlist.SelectedItem.ToString();
+
+                resetgraphstuff();
+
+                if (SelectedPort.IsOpen)
+                    SelectedPort.Close();
+
+                SerialPort s = new SerialPort();
+                s.PortName = lastportname;
+                s.BaudRate = 9600;
+                s.Parity = Parity.None;
+                s.Handshake = Handshake.None;
+                s.ReadTimeout = 500;
+                s.WriteTimeout = 500;
+
+                SelectedPort.Dispose();
+                SelectedPort = s;
+
+                Thread RTloop = new Thread(ReadTimeLoop);
+                RTloop.Priority = ThreadPriority.Highest;
+
+                Thread RCloop = new Thread(ReadCOMLoop);
+                RCloop.Priority = ThreadPriority.Highest;
+
+                Thread Cloop = new Thread(correctionLoop);
+                Cloop.Priority = ThreadPriority.Lowest;
+
+                LiveRecording = true;
+
                 try
                 {
-                    if (int.Parse(data) < 1024)
-                        vot.Series[0].Points.AddXY(graphtime, int.Parse(data));
+                    RTloop.Start();
+                    SelectedPort.Open();
+                    RCloop.Start();
+                    Cloop.Start();
+                    graphsw.Start();
                 }
-                catch (Exception) { }
-            });
+                catch (Exception)
+                {
+                    LiveRecording = false;
+                    //MessageBox.Show("Port is unavailable!");
+                }
+            }
         }
+
+        List<DataPoint> r = new List<DataPoint>();
 
         private void collectdata_Click(object sender, EventArgs e)
         {
-            sampletimechooser.Enabled = false;
-            stop.Enabled = true;
-            portlist.Enabled = false;
-            collectdata.Enabled = false;
-            saveresults.Enabled = false;
+            //TMessageBox(vot.Series[0].Points.Count.ToString());
+            collectdata.Text = "Recording:" + (!DataRecording).ToString();
 
-            resetgraphstuff();
-
-            System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
-            t.Interval = (int)sampletimechooser.Value;
-            t.Tick += T_Tick;
-
-            Thread th = new Thread(StopwatchLoop);
-            th.Priority = ThreadPriority.Highest;
-
-            Thread th2 = new Thread(ReadLoop);
-            th2.Priority = ThreadPriority.Highest;
-
-            Thread th3 = new Thread(correctionloop);
-            th3.Priority = ThreadPriority.Lowest;
-
-            ShouldTime = true;
-
-            try
+            if (!DataRecording)
             {
-                th.Start();
-                SelectedPort.Open();
-                th2.Start();
-                th3.Start();
-                graphsw.Start();
-                t.Start();
+                r.Clear();
             }
-            catch (Exception)
+            else
             {
-                MessageBox.Show("That port is already in use!");
-                stop_Click(sender, e);
+                if (r.Count > 0)
+                {
+                    new Thread(() =>
+                    {
+                        frf.PerformSafely(() =>
+                        {
+                            DrawFRFMathNumericsFFT(r.ToArray());
+                        });
+                    }).Start();
+                }
             }
+
+            DataRecording = !DataRecording;
         }
 
         private void resetgraphstuff()
@@ -126,12 +200,11 @@ namespace ModalTest
             frf.Series[0].Points.Clear();
         }
 
-        private void correctionloop()
+        private void correctionLoop()
         {
-            while (ShouldTime)
+            while (LiveRecording)
             {
                 CorrectErrors();
-                Thread.Sleep(1000);
             }
         }
 
@@ -139,9 +212,10 @@ namespace ModalTest
         {
             try
             {
-                for (int l = 2; l < vot.Series[0].Points.Count; l++)
+                for (int l = vot.Series[0].Points.Count; l > 2; l--)
                 {
                     if (vot.Series[0].Points.Count > 1 && Math.Abs(vot.Series[0].Points[l - 1].XValue - vot.Series[0].Points[l - 2].XValue) > 0.5)
+                    {
                         vot.PerformSafely(() =>
                         {
                             DataPoint d = vot.Series[0].Points[l - 1]; //currently looked at
@@ -160,88 +234,52 @@ namespace ModalTest
 
                             for (; Math.Abs(d.XValue - d2.XValue) > 0.5; d.XValue = d.XValue * Math.Pow(10, direction)) { }
 
-                            //TMessageBox("Corrected malformed data:\n" + old + "\n" + d.XValue);
-
-                            //add a textbox that this appends to when correcting a time
                         });
+                        break;
+                    }
                 }
             }
             catch (Exception) { }
         }
 
-        private void StopwatchLoop()
+        private void ReadTimeLoop()
         {
-            while (ShouldTime)
+            while (LiveRecording)
             {
                 graphtime = Convert.ToDecimal(graphsw.ElapsedTicks) / Convert.ToDecimal(Stopwatch.Frequency);
             }
         }
 
-        private void ReadLoop()
+        private void ReadCOMLoop()
         {
-            while (ShouldTime)
+            while (LiveRecording)
             {
                 try
                 {
-                    string data = SelectedPort.ReadLine();
-
-                    datadebugbox.PerformSafely(() =>
-                    {
-                        datadebugbox.Text = data;
-                    });
-
                     vot.PerformSafely(() =>
                     {
+                        string dd = "";
+
                         try
                         {
-                            int d = int.Parse(data);
+                            dd = SelectedPort.ReadLine();
+                            //TMessageBox(dd);
+
+                            int d = int.Parse(dd);
                             if (d < 1024)
+                            {
                                 vot.Series[0].Points.AddXY(graphtime, d);
+                                if (LiveRecording)
+                                    r.Add(new DataPoint((double)graphtime, d));
+                            }
+                            //vot.ChartAreas[0].AxisX.Minimum = (double)graphtime - 5;
                         }
-                        catch (Exception) { }
+                        catch (Exception e) {
+                            //TMessageBox(dd + Environment.NewLine + Environment.NewLine + e.ToString());
+                        }
                     });
                 }
-                catch (TimeoutException) { }
-                catch (Exception e)
-                {
-                    TMessageBox(e.ToString());
-                }
-            }
-        }
-
-        private void T_Tick(object sender, EventArgs e)
-        {
-            //stop 5 second graphs
-            //sender is timer object
-        }
-        
-        private void stop_Click(object sender, EventArgs e)
-        {
-            if (SelectedPort.IsOpen)
-                SelectedPort.Close();
-
-            ShouldTime = false;
-
-            sampletimechooser.Enabled = true;
-            stop.Enabled = false;
-            portlist.Enabled = true;
-            collectdata.Enabled = true;
-            saveresults.Enabled = true;
-
-            CorrectErrors();
-
-            if (vot.Series[0].Points.Count > 0)
-            {
-                new Thread(() =>
-                {
-                    frf.BeginPerformSafely(() =>
-                    {
-                        vot.BeginPerformSafely(() =>
-                        {
-                            DrawFRFMathNumericsFFT(vot.Series[0].Points);
-                        });
-                    });
-                }).Start();
+                catch (Exception) { }
             }
         }
 
@@ -276,9 +314,9 @@ namespace ModalTest
             return csv;
         }
 
-        public void DrawFRFMathNumericsFFT(DataPointCollection data)
+        public void DrawFRFMathNumericsFFT(DataPoint[] data)
         {
-            Complex[] samples = new Complex[data.Count];
+            Complex[] samples = new Complex[data.Length];
 
             for (int i = 0; i < samples.Length; i++)
                 samples[i] = new Complex(data[i].XValue, data[i].YValues[0]);
@@ -294,15 +332,18 @@ namespace ModalTest
 
             //https://www.youtube.com/watch?v=DqQlNoQW00w at 27:18
 
-            //frf.ChartAreas[0].AxisX.Maximum = c.Length / 2;
             frf.ChartAreas[0].AxisY.Maximum = 0;
 
+<<<<<<< HEAD
             //double samplerate = 
 
 
 
             //put a choice for this /100
             for (int i = 1; i < samples.Length / 100; i++)
+=======
+            for (int i = 1; i < samples.Length / 2; i++)
+>>>>>>> master
             {
                 double magnitude = (2.0 / samples.Length) * (Math.Abs(Math.Sqrt(Math.Pow(samples[i].Real, 2) + Math.Pow(samples[i].Imaginary, 2))));
 
@@ -344,8 +385,6 @@ namespace ModalTest
             }
 
             sf.Dispose();
-
-            stop_Click(this, null);
         }
 
         private List<DataPoint> ParseFromCSV(string csv)
@@ -406,30 +445,52 @@ namespace ModalTest
 
         void chart_MouseMove(object sender, MouseEventArgs e)
         {
-            Chart c = sender as Chart;
-
-            var pos = e.Location;
-            if (prevPosition.HasValue && pos == prevPosition.Value)
-                return;
-            tooltip.RemoveAll();
-            prevPosition = pos;
-            var results = c.HitTest(pos.X, pos.Y, false,
-                                            ChartElementType.DataPoint);
-            foreach (DataPoint d in c.Series[0].Points)
+            try
             {
-                if (d != null)
-                {
-                    var pointXPixel = c.ChartAreas[0].AxisX.ValueToPixelPosition(d.XValue);
-                    var pointYPixel = c.ChartAreas[0].AxisY.ValueToPixelPosition(d.YValues[0]);
+                var pos = e.Location;
 
-                    // check if the cursor is really close to the point (2 pixels around the point)
-                    if (Math.Abs(pos.X - pointXPixel) < 2)//&& Math.Abs(pos.Y - pointYPixel) < 2)
+                if (prevPosition.HasValue && pos == prevPosition.Value)
+                    return;
+
+                Chart c = sender as Chart;
+
+                tooltip.RemoveAll();
+
+                prevPosition = pos;
+
+                for (int i = c.Series[0].Points.Count - 1; i > 0; i--)
+                {
+                    DataPoint d = c.Series[0].Points[i];
+
+                    if (d != null)
                     {
-                        tooltip.Show("X=" + d.XValue + ", Y=" + d.YValues[0], c,
-                                        pos.X, pos.Y - 15);
+                        var pointXPixel = c.ChartAreas[0].AxisX.ValueToPixelPosition(d.XValue);
+                        var pointYPixel = c.ChartAreas[0].AxisY.ValueToPixelPosition(d.YValues[0]);
+
+                        // check if the cursor is really close to the point (2 pixels around the point)
+                        if (Math.Abs(pos.X - pointXPixel) < 2)//&& Math.Abs(pos.Y - pointYPixel) < 2)
+                        {
+                            tooltip.Show("X=" + d.XValue + ", Y=" + d.YValues[0], c,
+                                            pos.X, pos.Y - 15);
+                        }
                     }
                 }
             }
+            catch (Exception) { }
+        }
+
+        private void ModalTesterForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            LiveRecording = false;
+            DataRecording = false;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (DataRecording)
+                collectdata_Click(this, null);
+
+            LiveRecording = false;
         }
     }
 }
