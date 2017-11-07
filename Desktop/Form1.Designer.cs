@@ -1,6 +1,6 @@
 ﻿namespace ModalTest
 {
-    partial class Form1
+    partial class ModalTesterForm
     {
         /// <summary>
         /// Required designer variable.
@@ -42,7 +42,6 @@
             System.Windows.Forms.DataVisualization.Charting.Title title12 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.collectdata = new System.Windows.Forms.Button();
             this.saveresults = new System.Windows.Forms.Button();
-            this.stop = new System.Windows.Forms.Button();
             this.psd = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.frf = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -50,9 +49,6 @@
             this.accelerometer = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.vot = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.portlist = new System.Windows.Forms.ComboBox();
-            this.datadebugbox = new System.Windows.Forms.TextBox();
-            this.sampletimechooser = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
             this.load = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.psd)).BeginInit();
@@ -61,7 +57,6 @@
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.accelerometer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vot)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sampletimechooser)).BeginInit();
             this.SuspendLayout();
             // 
             // collectdata
@@ -88,19 +83,6 @@
             this.saveresults.UseVisualStyleBackColor = true;
             this.saveresults.Click += new System.EventHandler(this.saveresults_Click);
             // 
-            // stop
-            // 
-            this.stop.Enabled = false;
-            this.stop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.stop.Location = new System.Drawing.Point(122, 10);
-            this.stop.Margin = new System.Windows.Forms.Padding(2);
-            this.stop.Name = "stop";
-            this.stop.Size = new System.Drawing.Size(108, 22);
-            this.stop.TabIndex = 2;
-            this.stop.Text = "Stop";
-            this.stop.UseVisualStyleBackColor = true;
-            this.stop.Click += new System.EventHandler(this.stop_Click);
-            // 
             // psd
             // 
             chartArea9.Name = "ChartArea1";
@@ -121,6 +103,8 @@
             // frf
             // 
             chartArea10.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea10.AxisX.Title = "Hz";
+            chartArea10.AxisY.Title = "Magnitude";
             chartArea10.Name = "ChartArea1";
             this.frf.ChartAreas.Add(chartArea10);
             this.frf.Location = new System.Drawing.Point(4, 17);
@@ -183,7 +167,8 @@
             // 
             // vot
             // 
-            chartArea12.AxisX.Interval = 1D;
+            chartArea12.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            chartArea12.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
             chartArea12.AxisX.Minimum = 0D;
             chartArea12.Name = "ChartArea1";
             this.vot.ChartAreas.Add(chartArea12);
@@ -209,49 +194,6 @@
             this.portlist.Name = "portlist";
             this.portlist.Size = new System.Drawing.Size(92, 21);
             this.portlist.TabIndex = 12;
-            this.portlist.SelectedIndexChanged += new System.EventHandler(this.portlist_SelectedIndexChanged);
-            // 
-            // datadebugbox
-            // 
-            this.datadebugbox.Location = new System.Drawing.Point(937, 12);
-            this.datadebugbox.Margin = new System.Windows.Forms.Padding(2);
-            this.datadebugbox.Name = "datadebugbox";
-            this.datadebugbox.ReadOnly = true;
-            this.datadebugbox.Size = new System.Drawing.Size(90, 20);
-            this.datadebugbox.TabIndex = 9;
-            // 
-            // sampletimechooser
-            // 
-            this.sampletimechooser.Location = new System.Drawing.Point(800, 12);
-            this.sampletimechooser.Margin = new System.Windows.Forms.Padding(2);
-            this.sampletimechooser.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.sampletimechooser.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.sampletimechooser.Name = "sampletimechooser";
-            this.sampletimechooser.Size = new System.Drawing.Size(37, 20);
-            this.sampletimechooser.TabIndex = 13;
-            this.sampletimechooser.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(730, 14);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 13);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "Sample time:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // load
             // 
@@ -277,35 +219,30 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // Form1
+            // ModalTesterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1394, 756);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.load);
-            this.Controls.Add(this.sampletimechooser);
-            this.Controls.Add(this.datadebugbox);
             this.Controls.Add(this.portlist);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.saveresults);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.stop);
             this.Controls.Add(this.collectdata);
-            this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "Form1";
+            this.Name = "ModalTesterForm";
             this.Text = "Modal Tester";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ModalTesterForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.psd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.frf)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.accelerometer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.vot)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sampletimechooser)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -313,7 +250,6 @@
 
         private System.Windows.Forms.Button collectdata;
         private System.Windows.Forms.Button saveresults;
-        private System.Windows.Forms.Button stop;
         private System.Windows.Forms.DataVisualization.Charting.Chart psd;
         private System.Windows.Forms.DataVisualization.Charting.Chart frf;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -321,9 +257,6 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart vot;
         private System.Windows.Forms.DataVisualization.Charting.Chart accelerometer;
         private System.Windows.Forms.ComboBox portlist;
-        private System.Windows.Forms.TextBox datadebugbox;
-        private System.Windows.Forms.NumericUpDown sampletimechooser;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button load;
         private System.Windows.Forms.Button button1;
     }
