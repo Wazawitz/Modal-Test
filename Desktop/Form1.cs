@@ -163,23 +163,32 @@ namespace ModalTest
             }
         }
 
+        List<DataPoint> r = new List<DataPoint>();
+
         private void collectdata_Click(object sender, EventArgs e)
         {
-            TMessageBox(vot.Series[0].Points.Count.ToString());
+            //TMessageBox(vot.Series[0].Points.Count.ToString());
+            collectdata.Text = "Recording:" + (!DataRecording).ToString();
 
-            if (vot.Series[0].Points.Count > 0)
+            if (!DataRecording)
             {
-                new Thread(() =>
-                {
-                    frf.BeginPerformSafely(() =>
-                    {
-                        vot.BeginPerformSafely(() =>
-                        {
-                            DrawFRFMathNumericsFFT(vot.Series[0].Points);
-                        });
-                    });
-                }).Start();
+                r.Clear();
             }
+            else
+            {
+                if (r.Count > 0)
+                {
+                    new Thread(() =>
+                    {
+                        frf.PerformSafely(() =>
+                        {
+                            DrawFRFMathNumericsFFT(r.ToArray());
+                        });
+                    }).Start();
+                }
+            }
+
+            DataRecording = !DataRecording;
         }
 
         private void resetgraphstuff()
@@ -258,11 +267,15 @@ namespace ModalTest
 
                             int d = int.Parse(dd);
                             if (d < 1024)
+                            {
                                 vot.Series[0].Points.AddXY(graphtime, d);
-                            vot.ChartAreas[0].AxisX.Minimum = (double)graphtime - 5;
+                                if (LiveRecording)
+                                    r.Add(new DataPoint((double)graphtime, d));
+                            }
+                            //vot.ChartAreas[0].AxisX.Minimum = (double)graphtime - 5;
                         }
                         catch (Exception e) {
-                            TMessageBox(dd + Environment.NewLine + Environment.NewLine + e.ToString());
+                            //TMessageBox(dd + Environment.NewLine + Environment.NewLine + e.ToString());
                         }
                     });
                 }
@@ -301,9 +314,9 @@ namespace ModalTest
             return csv;
         }
 
-        public void DrawFRFMathNumericsFFT(DataPointCollection data)
+        public void DrawFRFMathNumericsFFT(DataPoint[] data)
         {
-            Complex[] samples = new Complex[data.Count];
+            Complex[] samples = new Complex[data.Length];
 
             for (int i = 0; i < samples.Length; i++)
                 samples[i] = new Complex(data[i].XValue, data[i].YValues[0]);
@@ -321,7 +334,7 @@ namespace ModalTest
 
             frf.ChartAreas[0].AxisY.Maximum = 0;
 
-            for (int i = 1; i < samples.Length / 10; i++)
+            for (int i = 1; i < samples.Length / 2; i++)
             {
                 double magnitude = (2.0 / samples.Length) * (Math.Abs(Math.Sqrt(Math.Pow(samples[i].Real, 2) + Math.Pow(samples[i].Imaginary, 2))));
 
@@ -461,6 +474,14 @@ namespace ModalTest
         {
             LiveRecording = false;
             DataRecording = false;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (DataRecording)
+                collectdata_Click(this, null);
+
+            LiveRecording = false;
         }
     }
 }
