@@ -19,6 +19,6 @@ namespace ModalTest
         int WriteTimeout { get; set; }
 
         void Open();
-        String ReadLine();
+        string ReadLine();
     }
 }
