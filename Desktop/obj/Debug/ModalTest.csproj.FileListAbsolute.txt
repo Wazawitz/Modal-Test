@@ -9,3 +9,14 @@ D:\George Waskowicz\Documents\Github\Modal-Test\Desktop\bin\Debug\ModalTest.pdb
 D:\George Waskowicz\Documents\Github\Modal-Test\Desktop\bin\Debug\MathNet.Numerics.dll
 D:\George Waskowicz\Documents\Github\Modal-Test\Desktop\obj\Debug\ModalTest.exe
 D:\George Waskowicz\Documents\Github\Modal-Test\Desktop\obj\Debug\ModalTest.pdb
+C:\Users\me\Documents\repos\Modal-Test\Desktop\bin\Debug\ModalTest.exe.config
+C:\Users\me\Documents\repos\Modal-Test\Desktop\bin\Debug\ModalTest.exe
+C:\Users\me\Documents\repos\Modal-Test\Desktop\bin\Debug\ModalTest.pdb
+C:\Users\me\Documents\repos\Modal-Test\Desktop\bin\Debug\MathNet.Numerics.dll
+C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.csprojResolveAssemblyReference.cache
+C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.ModalTesterForm.resources
+C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.Properties.Resources.resources
+C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.csproj.GenerateResource.Cache
+C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.csproj.CoreCompileInputs.cache
+C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.exe
+C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.pdb
