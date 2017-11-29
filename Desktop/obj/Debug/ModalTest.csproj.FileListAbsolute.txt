@@ -33,3 +33,4 @@ C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\bin\Debug\MathNet.Nume
 =======
 C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.ModalTesterForm.resources
 >>>>>>> master
+C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\obj\Debug\ModalTest.ModalTesterForm.resources

@@ -127,11 +127,11 @@ namespace ModalTest
 
                 SerialPort s = new SerialPort();
                 s.PortName = lastportname;
-                s.BaudRate = 9600;
+                s.BaudRate = 19200;
                 s.Parity = Parity.None;
                 s.Handshake = Handshake.None;
-                s.ReadTimeout = 500;
-                s.WriteTimeout = 500;
+                s.ReadTimeout = 1000;
+                s.WriteTimeout = 1000;
 
                 SelectedPort.Dispose();
                 SelectedPort = s;
@@ -266,15 +266,19 @@ namespace ModalTest
                             //TMessageBox(dd);
 
                             int d = int.Parse(dd);
+
+                            //int d = SelectedPort.ReadIn
+
                             if (d < 1024)
                             {
                                 vot.Series[0].Points.AddXY(graphtime, d);
                                 if (LiveRecording)
                                     r.Add(new DataPoint((double)graphtime, d));
                             }
-                            //vot.ChartAreas[0].AxisX.Minimum = (double)graphtime - 5;
+                            vot.ChartAreas[0].AxisX.Minimum = (double)graphtime - 0.5;
                         }
-                        catch (Exception e) {
+                        catch (Exception e)
+                        {
                             //TMessageBox(dd + Environment.NewLine + Environment.NewLine + e.ToString());
                         }
                     });
@@ -334,16 +338,7 @@ namespace ModalTest
 
             frf.ChartAreas[0].AxisY.Maximum = 0;
 
-<<<<<<< HEAD
-            //double samplerate = 
-
-
-
-            //put a choice for this /100
-            for (int i = 1; i < samples.Length / 100; i++)
-=======
             for (int i = 1; i < samples.Length / 2; i++)
->>>>>>> master
             {
                 double magnitude = (2.0 / samples.Length) * (Math.Abs(Math.Sqrt(Math.Pow(samples[i].Real, 2) + Math.Pow(samples[i].Imaginary, 2))));
 
