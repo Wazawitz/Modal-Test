@@ -29,12 +29,13 @@ namespace ModalTest
     //vot max data length for live scrolling, currently at 5000
     public partial class ModalTesterForm : Form
     {
-        SerialPort SelectedPort = new SerialPort();
+        IInput SelectedPort = new ISerialPort();
 
         Stopwatch graphsw = new Stopwatch();
         decimal graphtime;
-        bool LiveFeed = false;
+        bool COMFeed = false;
         bool DataRecording = false;
+        bool COMOrSim = true;
         string lastportname = "";
 
         public ModalTesterForm()
@@ -45,7 +46,7 @@ namespace ModalTest
             InitializeComponent();
 
             USBInsertHandler(this, null);
-            RefreshLiveFeed();
+            RefreshLiveFeed(false);
 
             portlist.SelectedIndexChanged += portlist_SelectedIndexChanged;
 
@@ -121,14 +122,17 @@ namespace ModalTest
         private void portlist_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (portlist.SelectedItem.ToString() != lastportname)
-                RefreshLiveFeed();
+                liveToolStripMenuItem_Click(sender, e);
         }
 
-        private void RefreshLiveFeed()
+        private void RefreshLiveFeed(bool displayerror = true)
         {
+            if (!COMFeed)
+                DataRecording = false;
+
             if (!DataRecording)
             {
-                LiveFeed = false;
+                COMFeed = false;
 
                 lastportname = portlist.SelectedItem.ToString();
 
@@ -139,12 +143,10 @@ namespace ModalTest
                 resetgraphstuff();
 
                 SelectedPort.Dispose();
-                SelectedPort = new SerialPort();
+                SelectedPort = new ISerialPort();
 
                 SelectedPort.PortName = lastportname;
                 SelectedPort.BaudRate = 19200;
-                SelectedPort.Parity = Parity.None;
-                SelectedPort.Handshake = Handshake.None;
                 SelectedPort.ReadTimeout = 1000;
                 SelectedPort.WriteTimeout = 1000;
 
@@ -157,7 +159,7 @@ namespace ModalTest
                 Thread Cloop = new Thread(correctionLoop);
                 Cloop.Priority = ThreadPriority.Lowest;
 
-                LiveFeed = true;
+                COMFeed = true;
 
                 try
                 {
@@ -174,9 +176,11 @@ namespace ModalTest
                 }
                 catch (Exception)
                 {
-                    LiveFeed = false;
-                    MessageBox.Show("Port is unavailable!");
+                    COMFeed = false;
                     resetgraphstuff();
+
+                    if (displayerror)
+                        MessageBox.Show("Port is unavailable!");
                 }
             }
         }
@@ -186,7 +190,7 @@ namespace ModalTest
 
         private void collectdata_Click(object sender, EventArgs e)
         {
-            if (!LiveFeed)
+            if (!COMFeed)
             {
                 MessageBox.Show("Live feed must be enabled first!");
                 return;
@@ -202,7 +206,7 @@ namespace ModalTest
             {
                 Markend = (double)graphtime;
                 collectdata.Text = "Press space to record";
-                LiveFeed = false;
+                COMFeed = false;
                 Thread.Sleep(100);
                 DataRecording = false;
 
@@ -242,7 +246,7 @@ namespace ModalTest
 
         private void correctionLoop()
         {
-            while (LiveFeed)
+            while (COMFeed)
             {
                 CorrectErrors();
             }
@@ -284,7 +288,7 @@ namespace ModalTest
 
         private void ReadTimeLoop()
         {
-            while (LiveFeed)
+            while (COMFeed)
             {
                 graphtime = Convert.ToDecimal(graphsw.ElapsedTicks) / Convert.ToDecimal(Stopwatch.Frequency);
             }
@@ -292,7 +296,7 @@ namespace ModalTest
 
         private void ReadCOMLoop()
         {
-            while (LiveFeed)
+            while (COMFeed)
             {
                 try
                 {
@@ -312,7 +316,7 @@ namespace ModalTest
                             if (d < 1024)
                                 vot.Series[0].Points.AddXY(graphtime, d);
 
-                            if (LiveFeed && !DataRecording)
+                            if (COMFeed && !DataRecording)
                                 vot.ChartAreas[0].AxisX.Minimum = (double)graphtime - 0.5;
                         }
                         catch (Exception e)
@@ -468,7 +472,7 @@ namespace ModalTest
 
         private void ModalTesterForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            LiveFeed = false;
+            COMFeed = false;
             DataRecording = false;
         }
 
@@ -477,7 +481,7 @@ namespace ModalTest
             if (DataRecording)
                 collectdata_Click(this, null);
 
-            LiveFeed = false;
+            COMFeed = false;
             DataRecording = false;
 
             SaveFileDialog sf = new SaveFileDialog();
@@ -499,18 +503,9 @@ namespace ModalTest
             sf.Dispose();
         }
 
-        private void liveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (!LiveFeed)
-            {
-                DataRecording = false;
-                RefreshLiveFeed();
-            }
-        }
-
         private void cSVToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LiveFeed = false;
+            COMFeed = false;
 
             OpenFileDialog sf = new OpenFileDialog();
 
@@ -543,11 +538,23 @@ namespace ModalTest
 
         private void ModalTesterForm_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Space && LiveFeed)
+            if (e.KeyCode == Keys.Space && COMFeed)
             {
                 e.Handled = true;
                 collectdata_Click(this, null);
             }
+        }
+
+        private void liveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            COMOrSim = true;
+            RefreshLiveFeed();
+        }
+
+        private void simulatedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            COMOrSim = false;
+            RefreshLiveFeed();
         }
     }
 }

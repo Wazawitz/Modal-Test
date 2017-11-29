@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea13 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title13 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea14 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title14 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea15 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title15 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea16 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title16 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title5 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title6 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title7 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title8 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.collectdata = new System.Windows.Forms.Button();
             this.psd = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.frf = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -74,79 +74,79 @@
             // 
             // psd
             // 
-            chartArea13.Name = "ChartArea1";
-            this.psd.ChartAreas.Add(chartArea13);
+            chartArea5.Name = "ChartArea1";
+            this.psd.ChartAreas.Add(chartArea5);
             this.psd.Location = new System.Drawing.Point(0, 559);
             this.psd.Margin = new System.Windows.Forms.Padding(2);
             this.psd.Name = "psd";
-            series13.ChartArea = "ChartArea1";
-            series13.Name = "Series1";
-            this.psd.Series.Add(series13);
+            series5.ChartArea = "ChartArea1";
+            series5.Name = "Series1";
+            this.psd.Series.Add(series5);
             this.psd.Size = new System.Drawing.Size(1383, 165);
             this.psd.TabIndex = 5;
             this.psd.Text = "PSD";
-            title13.Name = "Title1";
-            title13.Text = "PSD";
-            this.psd.Titles.Add(title13);
+            title5.Name = "Title1";
+            title5.Text = "PSD";
+            this.psd.Titles.Add(title5);
             // 
             // frf
             // 
-            chartArea14.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea14.AxisX.Title = "Hz";
-            chartArea14.AxisY.Title = "Magnitude";
-            chartArea14.Name = "ChartArea1";
-            this.frf.ChartAreas.Add(chartArea14);
+            chartArea6.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea6.AxisX.Title = "Hz";
+            chartArea6.AxisY.Title = "Magnitude";
+            chartArea6.Name = "ChartArea1";
+            this.frf.ChartAreas.Add(chartArea6);
             this.frf.Location = new System.Drawing.Point(0, 390);
             this.frf.Margin = new System.Windows.Forms.Padding(2);
             this.frf.Name = "frf";
-            series14.ChartArea = "ChartArea1";
-            series14.Name = "Series1";
-            this.frf.Series.Add(series14);
+            series6.ChartArea = "ChartArea1";
+            series6.Name = "Series1";
+            this.frf.Series.Add(series6);
             this.frf.Size = new System.Drawing.Size(1383, 165);
             this.frf.TabIndex = 6;
             this.frf.Text = "FRF";
-            title14.Name = "FFT";
-            title14.Text = "FFT";
-            this.frf.Titles.Add(title14);
+            title6.Name = "FFT";
+            title6.Text = "FFT";
+            this.frf.Titles.Add(title6);
             this.frf.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart_MouseMove);
             // 
             // accelerometer
             // 
-            chartArea15.Name = "ChartArea1";
-            this.accelerometer.ChartAreas.Add(chartArea15);
+            chartArea7.Name = "ChartArea1";
+            this.accelerometer.ChartAreas.Add(chartArea7);
             this.accelerometer.Location = new System.Drawing.Point(0, 221);
             this.accelerometer.Margin = new System.Windows.Forms.Padding(2);
             this.accelerometer.Name = "accelerometer";
-            series15.ChartArea = "ChartArea1";
-            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series15.Name = "Series1";
-            this.accelerometer.Series.Add(series15);
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series7.Name = "Series1";
+            this.accelerometer.Series.Add(series7);
             this.accelerometer.Size = new System.Drawing.Size(1383, 165);
             this.accelerometer.TabIndex = 5;
             this.accelerometer.Text = "Accelerometer";
-            title15.Name = "Title1";
-            title15.Text = "Accelerometer over time";
-            this.accelerometer.Titles.Add(title15);
+            title7.Name = "Title1";
+            title7.Text = "Accelerometer over time";
+            this.accelerometer.Titles.Add(title7);
             // 
             // vot
             // 
-            chartArea16.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            chartArea16.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
-            chartArea16.AxisX.Minimum = 0D;
-            chartArea16.Name = "ChartArea1";
-            this.vot.ChartAreas.Add(chartArea16);
+            chartArea8.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            chartArea8.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
+            chartArea8.AxisX.Minimum = 0D;
+            chartArea8.Name = "ChartArea1";
+            this.vot.ChartAreas.Add(chartArea8);
             this.vot.Location = new System.Drawing.Point(0, 52);
             this.vot.Margin = new System.Windows.Forms.Padding(2);
             this.vot.Name = "vot";
-            series16.ChartArea = "ChartArea1";
-            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series16.Name = "DataSeries";
-            this.vot.Series.Add(series16);
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series8.Name = "DataSeries";
+            this.vot.Series.Add(series8);
             this.vot.Size = new System.Drawing.Size(1383, 165);
             this.vot.TabIndex = 6;
-            title16.Name = "Title1";
-            title16.Text = "Voltage over time";
-            this.vot.Titles.Add(title16);
+            title8.Name = "Title1";
+            title8.Text = "Voltage over time";
+            this.vot.Titles.Add(title8);
             this.vot.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart_MouseMove);
             // 
             // portlist
@@ -184,7 +184,7 @@
             // exportToCSVToolStripMenuItem
             // 
             this.exportToCSVToolStripMenuItem.Name = "exportToCSVToolStripMenuItem";
-            this.exportToCSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportToCSVToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.exportToCSVToolStripMenuItem.Text = "Export to CSV";
             this.exportToCSVToolStripMenuItem.Click += new System.EventHandler(this.exportToCSVToolStripMenuItem_Click);
             // 
@@ -192,31 +192,32 @@
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.liveToolStripMenuItem,
-            this.cSVToolStripMenuItem,
-            this.simulatedToolStripMenuItem});
+            this.simulatedToolStripMenuItem,
+            this.cSVToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem.Text = "View";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.viewToolStripMenuItem.Text = "Input";
             // 
             // liveToolStripMenuItem
             // 
             this.liveToolStripMenuItem.Name = "liveToolStripMenuItem";
-            this.liveToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.liveToolStripMenuItem.Text = "Live";
+            this.liveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.liveToolStripMenuItem.Text = "COM";
             this.liveToolStripMenuItem.Click += new System.EventHandler(this.liveToolStripMenuItem_Click);
             // 
             // cSVToolStripMenuItem
             // 
             this.cSVToolStripMenuItem.Name = "cSVToolStripMenuItem";
-            this.cSVToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.cSVToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.cSVToolStripMenuItem.Text = "CSV";
             this.cSVToolStripMenuItem.Click += new System.EventHandler(this.cSVToolStripMenuItem_Click);
             // 
             // simulatedToolStripMenuItem
             // 
             this.simulatedToolStripMenuItem.Name = "simulatedToolStripMenuItem";
-            this.simulatedToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.simulatedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.simulatedToolStripMenuItem.Text = "Simulated";
+            this.simulatedToolStripMenuItem.Click += new System.EventHandler(this.simulatedToolStripMenuItem_Click);
             // 
             // ModalTesterForm
             // 
