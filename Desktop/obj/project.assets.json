@@ -79,20 +79,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\geowa_000\\.nuget\\packages\\": {}
+    "C:\\Users\\George Waskowicz\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\geowa_000\\Documents\\GitKraken\\Modal-Test\\Desktop\\ModalTest.csproj",
+      "projectUniqueName": "D:\\George Waskowicz\\Documents\\Github\\Modal-Test\\Desktop\\ModalTest.csproj",
       "projectName": "ModalTest",
-      "projectPath": "C:\\Users\\geowa_000\\Documents\\GitKraken\\Modal-Test\\Desktop\\ModalTest.csproj",
-      "packagesPath": "C:\\Users\\geowa_000\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\geowa_000\\Documents\\GitKraken\\Modal-Test\\Desktop\\obj\\",
+      "projectPath": "D:\\George Waskowicz\\Documents\\Github\\Modal-Test\\Desktop\\ModalTest.csproj",
+      "packagesPath": "C:\\Users\\George Waskowicz\\.nuget\\packages\\",
+      "outputPath": "D:\\George Waskowicz\\Documents\\Github\\Modal-Test\\Desktop\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
-        "C:\\Users\\geowa_000\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\George Waskowicz\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

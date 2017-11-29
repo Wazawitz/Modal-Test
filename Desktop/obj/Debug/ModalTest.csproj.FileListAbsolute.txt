@@ -1,36 +1,11 @@
-c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\bin\Debug\ModalTest.exe.config
-c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\bin\Debug\ModalTest.exe
-c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\bin\Debug\ModalTest.pdb
-c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\obj\Debug\ModalTest.csprojResolveAssemblyReference.cache
-c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\obj\Debug\ModalTest.Form1.resources
-c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\obj\Debug\ModalTest.Properties.Resources.resources
-c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\obj\Debug\ModalTest.csproj.GenerateResource.Cache
-c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\obj\Debug\ModalTest.csproj.CoreCompileInputs.cache
-c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\obj\Debug\ModalTest.exe
-c:\users\geowa_000\documents\visual studio 2017\Projects\ModalTest\ModalTest\obj\Debug\ModalTest.pdb
-C:\Users\me\Documents\repos\Modal-Test\Desktop\bin\Debug\ModalTest.exe.config
-C:\Users\me\Documents\repos\Modal-Test\Desktop\bin\Debug\ModalTest.exe
-C:\Users\me\Documents\repos\Modal-Test\Desktop\bin\Debug\ModalTest.pdb
-C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.csprojResolveAssemblyReference.cache
-C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.Properties.Resources.resources
-C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.csproj.GenerateResource.Cache
-C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.csproj.CoreCompileInputs.cache
-C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.exe
-C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.pdb
-C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\bin\Debug\ModalTest.exe.config
-C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\bin\Debug\ModalTest.exe
-C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\bin\Debug\ModalTest.pdb
-C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\obj\Debug\ModalTest.csprojResolveAssemblyReference.cache
-C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\obj\Debug\ModalTest.Form1.resources
-C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\obj\Debug\ModalTest.Properties.Resources.resources
-C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\obj\Debug\ModalTest.csproj.GenerateResource.Cache
-C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\obj\Debug\ModalTest.csproj.CoreCompileInputs.cache
-C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\obj\Debug\ModalTest.exe
-C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\obj\Debug\ModalTest.pdb
-C:\Users\me\Documents\repos\Modal-Test\Desktop\bin\Debug\MathNet.Numerics.dll
-<<<<<<< HEAD
-C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\bin\Debug\MathNet.Numerics.dll
-=======
-C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.ModalTesterForm.resources
->>>>>>> master
-C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\obj\Debug\ModalTest.ModalTesterForm.resources
+D:\George Waskowicz\Documents\Github\Modal-Test\Desktop\obj\Debug\ModalTest.csprojResolveAssemblyReference.cache
+D:\George Waskowicz\Documents\Github\Modal-Test\Desktop\obj\Debug\ModalTest.ModalTesterForm.resources
+D:\George Waskowicz\Documents\Github\Modal-Test\Desktop\obj\Debug\ModalTest.Properties.Resources.resources
+D:\George Waskowicz\Documents\Github\Modal-Test\Desktop\obj\Debug\ModalTest.csproj.GenerateResource.Cache
+D:\George Waskowicz\Documents\Github\Modal-Test\Desktop\obj\Debug\ModalTest.csproj.CoreCompileInputs.cache
+D:\George Waskowicz\Documents\Github\Modal-Test\Desktop\bin\Debug\ModalTest.exe.config
+D:\George Waskowicz\Documents\Github\Modal-Test\Desktop\bin\Debug\ModalTest.exe
+D:\George Waskowicz\Documents\Github\Modal-Test\Desktop\bin\Debug\ModalTest.pdb
+D:\George Waskowicz\Documents\Github\Modal-Test\Desktop\bin\Debug\MathNet.Numerics.dll
+D:\George Waskowicz\Documents\Github\Modal-Test\Desktop\obj\Debug\ModalTest.exe
+D:\George Waskowicz\Documents\Github\Modal-Test\Desktop\obj\Debug\ModalTest.pdb

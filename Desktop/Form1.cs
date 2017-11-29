@@ -33,19 +33,19 @@ namespace ModalTest
 
         Stopwatch graphsw = new Stopwatch();
         decimal graphtime;
-        bool LiveRecording = false;
+        bool LiveFeed = false;
         bool DataRecording = false;
         string lastportname = "";
 
         public ModalTesterForm()
         {
             Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
-            Thread.CurrentThread.Priority = ThreadPriority.Normal;
+            Thread.CurrentThread.Priority = ThreadPriority.Highest;
 
             InitializeComponent();
 
             USBInsertHandler(this, null);
-            portlist_SelectedIndexChanged(this, null);
+            RefreshLiveFeed();
 
             portlist.SelectedIndexChanged += portlist_SelectedIndexChanged;
 
@@ -53,6 +53,14 @@ namespace ModalTest
             frf.ChartAreas[0].AxisY.Maximum = 1024;
 
             SetupUSBInsertDetection();
+        }
+
+        private void RefreshControls(Control c)
+        {
+            c.Refresh();
+
+            foreach (Control sc in c.Controls)
+                RefreshControls(sc);
         }
 
         private void SetupUSBInsertDetection()
@@ -112,29 +120,33 @@ namespace ModalTest
 
         private void portlist_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!DataRecording && portlist.SelectedItem.ToString() != lastportname)
-            {
-                LiveRecording = false;
+            if (portlist.SelectedItem.ToString() != lastportname)
+                RefreshLiveFeed();
+        }
 
-                Thread.Sleep(500);
+        private void RefreshLiveFeed()
+        {
+            if (!DataRecording)
+            {
+                LiveFeed = false;
 
                 lastportname = portlist.SelectedItem.ToString();
-
-                resetgraphstuff();
 
                 if (SelectedPort.IsOpen)
                     SelectedPort.Close();
 
-                SerialPort s = new SerialPort();
-                s.PortName = lastportname;
-                s.BaudRate = 19200;
-                s.Parity = Parity.None;
-                s.Handshake = Handshake.None;
-                s.ReadTimeout = 1000;
-                s.WriteTimeout = 1000;
+                
+                resetgraphstuff();
 
                 SelectedPort.Dispose();
-                SelectedPort = s;
+                SelectedPort = new SerialPort();
+
+                SelectedPort.PortName = lastportname;
+                SelectedPort.BaudRate = 19200;
+                SelectedPort.Parity = Parity.None;
+                SelectedPort.Handshake = Handshake.None;
+                SelectedPort.ReadTimeout = 1000;
+                SelectedPort.WriteTimeout = 1000;
 
                 Thread RTloop = new Thread(ReadTimeLoop);
                 RTloop.Priority = ThreadPriority.Highest;
@@ -145,64 +157,92 @@ namespace ModalTest
                 Thread Cloop = new Thread(correctionLoop);
                 Cloop.Priority = ThreadPriority.Lowest;
 
-                LiveRecording = true;
+                LiveFeed = true;
 
                 try
                 {
                     RTloop.Start();
                     SelectedPort.Open();
+
+                    //this is essentially a solution of timing out a connection, if it cant read after 1 second. if nothing is connected, the read will cause an exception
+                    Thread.Sleep(1000);
+                    SelectedPort.ReadLine();
+
                     RCloop.Start();
                     Cloop.Start();
                     graphsw.Start();
                 }
                 catch (Exception)
                 {
-                    LiveRecording = false;
-                    //MessageBox.Show("Port is unavailable!");
+                    LiveFeed = false;
+                    MessageBox.Show("Port is unavailable!");
+                    resetgraphstuff();
                 }
             }
         }
 
-        List<DataPoint> r = new List<DataPoint>();
+        double Markstart = 0;
+        double Markend = 0;
 
         private void collectdata_Click(object sender, EventArgs e)
         {
-            //TMessageBox(vot.Series[0].Points.Count.ToString());
-            collectdata.Text = "Recording:" + (!DataRecording).ToString();
+            if (!LiveFeed)
+            {
+                MessageBox.Show("Live feed must be enabled first!");
+                return;
+            }
 
             if (!DataRecording)
             {
-                r.Clear();
+                Markstart = (double)graphtime;
+                DataRecording = true;
+                collectdata.Text = "Press space to stop";
             }
             else
             {
-                if (r.Count > 0)
+                Markend = (double)graphtime;
+                collectdata.Text = "Press space to record";
+                LiveFeed = false;
+                Thread.Sleep(100);
+                DataRecording = false;
+
+                List<DataPoint> r = new List<DataPoint>();
+
+                foreach (DataPoint dp in vot.Series[0].Points)
                 {
-                    new Thread(() =>
-                    {
-                        frf.PerformSafely(() =>
-                        {
-                            DrawFRFMathNumericsFFT(r.ToArray());
-                        });
-                    }).Start();
+                    if (dp.XValue > Markstart && dp.XValue < Markend)
+                        r.Add(dp);
                 }
+
+                vot.PerformSafely(() =>
+                {
+                    vot.Series[0].Points.Clear();
+
+                    foreach (DataPoint dp in r)
+                    {
+                        vot.Series[0].Points.Add(dp);
+                    }
+                    vot.ChartAreas[0].AxisX.Minimum = vot.Series[0].Points[0].XValue;
+                });
+
+                DrawFRFMathNumericsFFT(r.ToArray());
             }
 
-            DataRecording = !DataRecording;
+            RefreshControls(this);
         }
 
         private void resetgraphstuff()
         {
             graphsw.Reset();
             graphtime = 0;
-            
-            vot.Series[0].Points.Clear();
-            frf.Series[0].Points.Clear();
+
+            vot.PerformSafely(() => { vot.Series[0].Points.Clear(); });
+            frf.PerformSafely(() => { frf.Series[0].Points.Clear(); });
         }
 
         private void correctionLoop()
         {
-            while (LiveRecording)
+            while (LiveFeed)
             {
                 CorrectErrors();
             }
@@ -244,7 +284,7 @@ namespace ModalTest
 
         private void ReadTimeLoop()
         {
-            while (LiveRecording)
+            while (LiveFeed)
             {
                 graphtime = Convert.ToDecimal(graphsw.ElapsedTicks) / Convert.ToDecimal(Stopwatch.Frequency);
             }
@@ -252,7 +292,7 @@ namespace ModalTest
 
         private void ReadCOMLoop()
         {
-            while (LiveRecording)
+            while (LiveFeed)
             {
                 try
                 {
@@ -270,12 +310,10 @@ namespace ModalTest
                             //int d = SelectedPort.ReadIn
 
                             if (d < 1024)
-                            {
                                 vot.Series[0].Points.AddXY(graphtime, d);
-                                if (LiveRecording)
-                                    r.Add(new DataPoint((double)graphtime, d));
-                            }
-                            vot.ChartAreas[0].AxisX.Minimum = (double)graphtime - 0.5;
+
+                            if (LiveFeed && !DataRecording)
+                                vot.ChartAreas[0].AxisX.Minimum = (double)graphtime - 0.5;
                         }
                         catch (Exception e)
                         {
@@ -285,27 +323,6 @@ namespace ModalTest
                 }
                 catch (Exception) { }
             }
-        }
-
-        private void saveresults_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog sf = new SaveFileDialog();
-
-            sf.Filter = "Comma separated values (*.csv)|*.csv|All files (*.*)|*.*";
-
-            if (sf.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    File.WriteAllText(sf.FileName, ParseToCSV("seconds,voltage", vot.Series[0].Points));
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Cannot access that file. Make sure it is not in use by another program.");
-                }
-            }
-
-            sf.Dispose();
         }
 
         private string ParseToCSV(string title, DataPointCollection points)
@@ -328,7 +345,7 @@ namespace ModalTest
             double samplerate = samples.Length / samples[samples.Length - 1].Real;
             double hzpersample = samplerate / samples.Length;
 
-            //TMessageBox("samplerate: " + samplerate + Environment.NewLine + "hz per sample: " + hzpersample);
+            TMessageBox("samplerate: " + samplerate);
 
             ManagedFourierTransformProvider fp = new ManagedFourierTransformProvider();
 
@@ -336,50 +353,25 @@ namespace ModalTest
 
             //https://www.youtube.com/watch?v=DqQlNoQW00w at 27:18
 
-            frf.ChartAreas[0].AxisY.Maximum = 0;
-
-            for (int i = 1; i < samples.Length / 2; i++)
+            frf.PerformSafely(() =>
             {
-                double magnitude = (2.0 / samples.Length) * (Math.Abs(Math.Sqrt(Math.Pow(samples[i].Real, 2) + Math.Pow(samples[i].Imaginary, 2))));
+                frf.ChartAreas[0].AxisY.Maximum = 0;
 
-                if (magnitude > frf.ChartAreas[0].AxisY.Maximum)
-                    frf.ChartAreas[0].AxisY.Maximum = magnitude;
+                for (int i = 1; i < samples.Length / 2; i++)
+                {
+                    double magnitude = (2.0 / samples.Length) * (Math.Abs(Math.Sqrt(Math.Pow(samples[i].Real, 2) + Math.Pow(samples[i].Imaginary, 2))));
 
-                frf.Series[0].Points.AddXY(hzpersample * i, magnitude);
-            }
+                    if (magnitude > frf.ChartAreas[0].AxisY.Maximum)
+                        frf.ChartAreas[0].AxisY.Maximum = magnitude;
+
+                    frf.Series[0].Points.AddXY(hzpersample * i, magnitude);
+                }
+            });
         }
 
         public static void TMessageBox(string str)
         {
             new Thread(() => { MessageBox.Show(str); }).Start();
-        }
-
-        private void load_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog sf = new OpenFileDialog();
-
-            sf.Filter = "Comma separated values (*.csv)|*.csv|All files (*.*)|*.*";
-
-            if (sf.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    List<DataPoint> d = ParseFromCSV(File.ReadAllText(sf.FileName));
-
-                    resetgraphstuff();
-
-                    for (int i = 0; i < d.Count; i++)
-                    {
-                        vot.Series[0].Points.Add(d[i]);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    TMessageBox("Error parsing CSV file" + Environment.NewLine + Environment.NewLine + ex.ToString());
-                }
-            }
-
-            sf.Dispose();
         }
 
         private List<DataPoint> ParseFromCSV(string csv)
@@ -414,7 +406,7 @@ namespace ModalTest
             return d;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void SaveFRFCSV(object sender, EventArgs e)
         {
             SaveFileDialog sf = new SaveFileDialog();
 
@@ -476,16 +468,86 @@ namespace ModalTest
 
         private void ModalTesterForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            LiveRecording = false;
+            LiveFeed = false;
             DataRecording = false;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void exportToCSVToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (DataRecording)
                 collectdata_Click(this, null);
 
-            LiveRecording = false;
+            LiveFeed = false;
+            DataRecording = false;
+
+            SaveFileDialog sf = new SaveFileDialog();
+
+            sf.Filter = "Comma separated values (*.csv)|*.csv|All files (*.*)|*.*";
+
+            if (sf.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    File.WriteAllText(sf.FileName, ParseToCSV("seconds,voltage", vot.Series[0].Points));
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Cannot access that file. Make sure it is not in use by another program.");
+                }
+            }
+
+            sf.Dispose();
+        }
+
+        private void liveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!LiveFeed)
+            {
+                DataRecording = false;
+                RefreshLiveFeed();
+            }
+        }
+
+        private void cSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LiveFeed = false;
+
+            OpenFileDialog sf = new OpenFileDialog();
+
+            sf.Filter = "Comma separated values (*.csv)|*.csv|All files (*.*)|*.*";
+
+            if (sf.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    List<DataPoint> d = ParseFromCSV(File.ReadAllText(sf.FileName));
+
+                    resetgraphstuff();
+
+                    for (int i = 0; i < d.Count; i++)
+                    {
+                        vot.Series[0].Points.Add(d[i]);
+                    }
+                    vot.ChartAreas[0].AxisX.Minimum = vot.Series[0].Points[0].XValue;
+
+                    DrawFRFMathNumericsFFT(d.ToArray());
+                }
+                catch (Exception ex)
+                {
+                    TMessageBox("Error parsing CSV file" + Environment.NewLine + Environment.NewLine + ex.ToString());
+                }
+            }
+
+            sf.Dispose();
+        }
+
+        private void ModalTesterForm_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Space && LiveFeed)
+            {
+                e.Handled = true;
+                collectdata_Click(this, null);
+            }
         }
     }
 }
