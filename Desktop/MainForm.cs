@@ -52,8 +52,8 @@ namespace ModalTest
 
             portlist.SelectedIndexChanged += portlist_SelectedIndexChanged;
 
-            lcfrf.ChartAreas[0].AxisX.Minimum = 0;
-            lcfrf.ChartAreas[0].AxisY.Maximum = 1024;
+            InputForceFFT.ChartAreas[0].AxisX.Minimum = 0;
+            InputForceFFT.ChartAreas[0].AxisY.Maximum = 1024;
 
             SetupUSBInsertDetection();
         }
@@ -230,27 +230,51 @@ namespace ModalTest
 
                 List<DataPoint> r = new List<DataPoint>();
 
-                foreach (DataPoint dp in lc.Series[0].Points)
+                foreach (DataPoint dp in InputForce.Series[0].Points)
                 {
                     if (dp.XValue > Markstart && dp.XValue < Markend)
                         r.Add(dp);
                 }
 
-                lc.PerformSafely(() =>
+                InputForce.PerformSafely(() =>
                 {
-                    lc.Series[0].Points.Clear();
+                    InputForce.Series[0].Points.Clear();
 
                     foreach (DataPoint dp in r)
                     {
-                        lc.Series[0].Points.Add(dp);
+                        InputForce.Series[0].Points.Add(dp);
                     }
 
-                    if (lc.Series[0].Points.Count > 0)
-                        lc.ChartAreas[0].AxisX.Minimum = lc.Series[0].Points[0].XValue;
+                    if (InputForce.Series[0].Points.Count > 0)
+                        InputForce.ChartAreas[0].AxisX.Minimum = InputForce.Series[0].Points[0].XValue;
                 });
 
-                if (r.Count > 0)
-                    DrawFRFMathNumericsFFTAndPSD(r.ToArray());
+                if (InputForce.Series[0].Points.Count > 0)
+                    DrawFRFMathNumericsFFTAndPSD(InputForce, InputForceFFT, InputForcePSD);
+
+                r.Clear();
+
+                foreach (DataPoint dp in AccelerometerResponse.Series[0].Points)
+                {
+                    if (dp.XValue > Markstart && dp.XValue < Markend)
+                        r.Add(dp);
+                }
+
+                AccelerometerResponse.PerformSafely(() =>
+                {
+                    AccelerometerResponse.Series[0].Points.Clear();
+
+                    foreach (DataPoint dp in r)
+                    {
+                        AccelerometerResponse.Series[0].Points.Add(dp);
+                    }
+
+                    if (AccelerometerResponse.Series[0].Points.Count > 0)
+                        AccelerometerResponse.ChartAreas[0].AxisX.Minimum = InputForce.Series[0].Points[0].XValue;
+                });
+
+                if (AccelerometerResponse.Series[0].Points.Count > 0)
+                    DrawFRFMathNumericsFFTAndPSD(AccelerometerResponse, AccelerometerResponseFFT, AccelerometerResponsePSD);
             }
 
             RefreshControls(this);
@@ -285,14 +309,14 @@ namespace ModalTest
         {
             try
             {
-                for (int l = lc.Series[0].Points.Count; l > 2; l--)
+                for (int l = InputForce.Series[0].Points.Count; l > 2; l--)
                 {
-                    if (lc.Series[0].Points.Count > 1 && Math.Abs(lc.Series[0].Points[l - 1].XValue - lc.Series[0].Points[l - 2].XValue) > 0.5)
+                    if (InputForce.Series[0].Points.Count > 1 && Math.Abs(InputForce.Series[0].Points[l - 1].XValue - InputForce.Series[0].Points[l - 2].XValue) > 0.5)
                     {
-                        lc.PerformSafely(() =>
+                        InputForce.PerformSafely(() =>
                         {
-                            DataPoint d = lc.Series[0].Points[l - 1]; //currently looked at
-                            DataPoint d2 = lc.Series[0].Points[l - 2]; //previous
+                            DataPoint d = InputForce.Series[0].Points[l - 1]; //currently looked at
+                            DataPoint d2 = InputForce.Series[0].Points[l - 2]; //previous
                             double old = d.XValue;
 
                             //gonna make a loop to change the target, because the errors are the time always being off by a multiple of 10.
@@ -336,25 +360,25 @@ namespace ModalTest
                     int d = int.Parse(dd.Substring(0, dd.IndexOf(" ")));
                     int d2 = int.Parse(dd.Substring(dd.IndexOf(" ") + 1));
 
-                    lc.PerformSafely(() =>
+                    InputForce.PerformSafely(() =>
                     {
                         if (d < 1024)
-                            lc.Series[0].Points.AddXY(t, d);
+                            InputForce.Series[0].Points.AddXY(t, d);
 
                         if (COMFeed && !DataRecording)
                         {
-                            lc.ChartAreas[0].AxisX.Minimum = (double)t - 0.5;
+                            InputForce.ChartAreas[0].AxisX.Minimum = (double)t - 0.5;
                         }
                     });
 
-                    acc.PerformSafely(() =>
+                    AccelerometerResponse.PerformSafely(() =>
                     {
                         if (d2 < 1024)
-                            acc.Series[0].Points.AddXY(t, d2);
+                            AccelerometerResponse.Series[0].Points.AddXY(t, d2);
 
                         if (COMFeed && !DataRecording)
                         {
-                            acc.ChartAreas[0].AxisX.Minimum = (double)t - 0.5;
+                            AccelerometerResponse.ChartAreas[0].AxisX.Minimum = (double)t - 0.5;
                         }
                     });
                 }
@@ -375,17 +399,19 @@ namespace ModalTest
             return csv;
         }
 
-        public void DrawFRFMathNumericsFFTAndPSD(DataPoint[] data)
+        public void DrawFRFMathNumericsFFTAndPSD(Chart source, Chart fft, Chart psd)
         {
-            Complex[] samples = new Complex[data.Length];
+            DataPointCollection sc = source.Series[0].Points;
 
-            for (int i = 0; i < samples.Length; i++)
-                samples[i] = new Complex(data[i].XValue, data[i].YValues[0]);
+            Complex[] samples = new Complex[sc.Count];
+
+            for (int i = 0; i < sc.Count; i++)
+                samples[i] = new Complex(sc[i].XValue, sc[i].YValues[0]);
 
             double samplerate = samples.Length / samples[samples.Length - 1].Real;
             double hzpersample = samplerate / samples.Length;
 
-            TMessageBox("samplerate: " + samplerate);
+            //TMessageBox("samplerate: " + samplerate);
 
             ManagedFourierTransformProvider fp = new ManagedFourierTransformProvider();
 
@@ -393,26 +419,26 @@ namespace ModalTest
 
             //https://www.youtube.com/watch?v=DqQlNoQW00w at 27:18
 
-            lcfrf.PerformSafely(() =>
+            fft.PerformSafely(() =>
             {
-                lcfrf.ChartAreas[0].AxisY.Maximum = 0;
+                fft.ChartAreas[0].AxisY.Maximum = 0;
 
                 for (int i = 1; i < samples.Length / 2; i++)
                 {
                     double magnitude = (2.0 / samples.Length) * (Math.Abs(Math.Sqrt(Math.Pow(samples[i].Real, 2) + Math.Pow(samples[i].Imaginary, 2))));
 
-                    if (magnitude > lcfrf.ChartAreas[0].AxisY.Maximum)
-                        lcfrf.ChartAreas[0].AxisY.Maximum = magnitude;
+                    if (magnitude > fft.ChartAreas[0].AxisY.Maximum)
+                        fft.ChartAreas[0].AxisY.Maximum = magnitude;
 
-                    lcfrf.Series[0].Points.AddXY(hzpersample * i, magnitude);
+                    fft.Series[0].Points.AddXY(hzpersample * i, magnitude);
                 }
             });
 
-            lcpsd.PerformSafely(() =>
+            psd.PerformSafely(() =>
             {
-                foreach (DataPoint d in lcfrf.Series[0].Points)
+                foreach (DataPoint d in fft.Series[0].Points)
                 {
-                    lcpsd.Series[0].Points.AddXY(d.XValue, Math.Pow(d.YValues[0], 2));
+                    psd.Series[0].Points.AddXY(d.XValue, Math.Pow(d.YValues[0], 2));
                 }
             });
         }
@@ -452,27 +478,6 @@ namespace ModalTest
             }
 
             return d;
-        }
-
-        private void SaveFRFCSV(object sender, EventArgs e)
-        {
-            SaveFileDialog sf = new SaveFileDialog();
-
-            sf.Filter = "Comma separated values (*.csv)|*.csv|All files (*.*)|*.*";
-
-            if (sf.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    File.WriteAllText(sf.FileName, ParseToCSV("Hz,magnitude", lcfrf.Series[0].Points));
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Cannot access that file. Make sure it is not in use by another program.");
-                }
-            }
-
-            sf.Dispose();
         }
 
         Point? prevPosition = null;
@@ -522,6 +527,7 @@ namespace ModalTest
 
         private void exportToCSVToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            /*
             if (DataRecording)
                 collectdata_Click(this, null);
 
@@ -536,7 +542,7 @@ namespace ModalTest
             {
                 try
                 {
-                    File.WriteAllText(sf.FileName, ParseToCSV("seconds,voltage", lc.Series[0].Points));
+                    File.WriteAllText(sf.FileName, ParseToCSV("seconds,voltage", InputForce.Series[0].Points));
                 }
                 catch (Exception)
                 {
@@ -545,6 +551,31 @@ namespace ModalTest
             }
 
             sf.Dispose();
+            */
+            FolderBrowserDialog f = new FolderBrowserDialog();
+            f.Description = "description";
+            f.ShowNewFolderButton = true;
+
+            if (f.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    foreach (Control c in Controls)
+                    {
+                        if (c is Chart)
+                        {
+                            Chart cc = (Chart)c;
+                            string path = Path.Combine(f.SelectedPath, cc.Name + ".csv");
+                            string contents = ParseToCSV(cc.Text, cc.Series[0].Points);
+                            File.WriteAllText(path, contents);
+                        }
+                    }
+                }
+                catch (Exception ee)
+                {
+                    MessageBox.Show(ee.Message, ee.GetType().ToString());
+                }
+            }
         }
 
         private void cSVToolStripMenuItem_Click(object sender, EventArgs e)
@@ -565,11 +596,11 @@ namespace ModalTest
 
                     for (int i = 0; i < d.Count; i++)
                     {
-                        lc.Series[0].Points.Add(d[i]);
+                        InputForce.Series[0].Points.Add(d[i]);
                     }
-                    lc.ChartAreas[0].AxisX.Minimum = lc.Series[0].Points[0].XValue;
+                    InputForce.ChartAreas[0].AxisX.Minimum = InputForce.Series[0].Points[0].XValue;
 
-                    DrawFRFMathNumericsFFTAndPSD(d.ToArray());
+                    DrawFRFMathNumericsFFTAndPSD(InputForce, InputForceFFT, InputForcePSD);
                 }
                 catch (Exception ex)
                 {

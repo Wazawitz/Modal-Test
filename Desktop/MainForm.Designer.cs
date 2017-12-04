@@ -28,129 +28,130 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title4 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title5 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title6 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            this.lcpsd = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.lcfrf = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.acc = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.lc = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title7 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title8 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title9 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title10 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title11 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title12 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            this.InputForcePSD = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.InputForceFFT = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.AccelerometerResponse = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.InputForce = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.liveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.simulatedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.portlist = new System.Windows.Forms.ToolStripComboBox();
             this.collectdata = new System.Windows.Forms.ToolStripMenuItem();
-            this.accpsd = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.accfrf = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            ((System.ComponentModel.ISupportInitialize)(this.lcpsd)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lcfrf)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.acc)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
+            this.AccelerometerResponsePSD = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.AccelerometerResponseFFT = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            ((System.ComponentModel.ISupportInitialize)(this.InputForcePSD)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InputForceFFT)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AccelerometerResponse)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InputForce)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.accpsd)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.accfrf)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AccelerometerResponsePSD)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AccelerometerResponseFFT)).BeginInit();
             this.SuspendLayout();
             // 
-            // lcpsd
+            // InputForcePSD
             // 
-            chartArea1.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea1.AxisY.IsLogarithmic = true;
-            chartArea1.AxisY.Minimum = 0.01D;
-            chartArea1.Name = "ChartArea1";
-            this.lcpsd.ChartAreas.Add(chartArea1);
-            this.lcpsd.Location = new System.Drawing.Point(0, 559);
-            this.lcpsd.Margin = new System.Windows.Forms.Padding(2);
-            this.lcpsd.Name = "lcpsd";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Name = "Series1";
-            this.lcpsd.Series.Add(series1);
-            this.lcpsd.Size = new System.Drawing.Size(935, 165);
-            this.lcpsd.TabIndex = 5;
-            this.lcpsd.Text = "PSD";
-            title1.Name = "Title1";
-            title1.Text = "PSD (input)";
-            this.lcpsd.Titles.Add(title1);
+            chartArea7.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea7.AxisY.IsLogarithmic = true;
+            chartArea7.AxisY.Minimum = 0.001D;
+            chartArea7.Name = "ChartArea1";
+            this.InputForcePSD.ChartAreas.Add(chartArea7);
+            this.InputForcePSD.Location = new System.Drawing.Point(0, 559);
+            this.InputForcePSD.Margin = new System.Windows.Forms.Padding(2);
+            this.InputForcePSD.Name = "InputForcePSD";
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series7.Name = "Series1";
+            this.InputForcePSD.Series.Add(series7);
+            this.InputForcePSD.Size = new System.Drawing.Size(935, 165);
+            this.InputForcePSD.TabIndex = 5;
+            this.InputForcePSD.Text = "power,hz";
+            title7.Name = "Title1";
+            title7.Text = "PSD (input)";
+            this.InputForcePSD.Titles.Add(title7);
             // 
-            // lcfrf
+            // InputForceFFT
             // 
-            chartArea2.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea2.AxisX.Title = "Hz";
-            chartArea2.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea2.AxisY.IsLogarithmic = true;
-            chartArea2.AxisY.Minimum = 0.01D;
-            chartArea2.Name = "ChartArea1";
-            this.lcfrf.ChartAreas.Add(chartArea2);
-            this.lcfrf.Location = new System.Drawing.Point(0, 390);
-            this.lcfrf.Margin = new System.Windows.Forms.Padding(2);
-            this.lcfrf.Name = "lcfrf";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Name = "Series1";
-            this.lcfrf.Series.Add(series2);
-            this.lcfrf.Size = new System.Drawing.Size(935, 165);
-            this.lcfrf.TabIndex = 6;
-            this.lcfrf.Text = "FRF";
-            title2.Name = "FFT";
-            title2.Text = "FFT ( input)";
-            this.lcfrf.Titles.Add(title2);
+            chartArea8.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea8.AxisX.Title = "Hz";
+            chartArea8.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea8.AxisY.IsLogarithmic = true;
+            chartArea8.AxisY.Minimum = 0.001D;
+            chartArea8.Name = "ChartArea1";
+            this.InputForceFFT.ChartAreas.Add(chartArea8);
+            this.InputForceFFT.Location = new System.Drawing.Point(0, 390);
+            this.InputForceFFT.Margin = new System.Windows.Forms.Padding(2);
+            this.InputForceFFT.Name = "InputForceFFT";
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series8.Name = "Series1";
+            this.InputForceFFT.Series.Add(series8);
+            this.InputForceFFT.Size = new System.Drawing.Size(935, 165);
+            this.InputForceFFT.TabIndex = 6;
+            this.InputForceFFT.Text = "hz,magnitude";
+            title8.Name = "FFT";
+            title8.Text = "FFT ( input)";
+            this.InputForceFFT.Titles.Add(title8);
             // 
-            // acc
+            // AccelerometerResponse
             // 
-            chartArea3.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
-            chartArea3.Name = "ChartArea1";
-            this.acc.ChartAreas.Add(chartArea3);
-            this.acc.Location = new System.Drawing.Point(0, 198);
-            this.acc.Margin = new System.Windows.Forms.Padding(2);
-            this.acc.Name = "acc";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series3.Name = "Series1";
-            this.acc.Series.Add(series3);
-            this.acc.Size = new System.Drawing.Size(1873, 165);
-            this.acc.TabIndex = 5;
-            title3.Name = "Title1";
-            title3.Text = "Accelerometer repsonse (voltage)";
-            this.acc.Titles.Add(title3);
+            chartArea9.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
+            chartArea9.Name = "ChartArea1";
+            this.AccelerometerResponse.ChartAreas.Add(chartArea9);
+            this.AccelerometerResponse.Location = new System.Drawing.Point(0, 198);
+            this.AccelerometerResponse.Margin = new System.Windows.Forms.Padding(2);
+            this.AccelerometerResponse.Name = "AccelerometerResponse";
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series9.Name = "Series1";
+            this.AccelerometerResponse.Series.Add(series9);
+            this.AccelerometerResponse.Size = new System.Drawing.Size(1873, 165);
+            this.AccelerometerResponse.TabIndex = 5;
+            this.AccelerometerResponse.Text = "seconds,voltage";
+            title9.Name = "Title1";
+            title9.Text = "Accelerometer repsonse (voltage)";
+            this.AccelerometerResponse.Titles.Add(title9);
             // 
-            // lc
+            // InputForce
             // 
-            chartArea4.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            chartArea4.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
-            chartArea4.AxisX.Minimum = 0D;
-            chartArea4.Name = "ChartArea1";
-            this.lc.ChartAreas.Add(chartArea4);
-            this.lc.Location = new System.Drawing.Point(0, 29);
-            this.lc.Margin = new System.Windows.Forms.Padding(2);
-            this.lc.Name = "lc";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series4.Name = "DataSeries";
-            this.lc.Series.Add(series4);
-            this.lc.Size = new System.Drawing.Size(1873, 165);
-            this.lc.TabIndex = 6;
-            title4.Name = "Title1";
-            title4.Text = "Input force (voltage)";
-            this.lc.Titles.Add(title4);
+            chartArea10.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            chartArea10.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
+            chartArea10.AxisX.Minimum = 0D;
+            chartArea10.Name = "ChartArea1";
+            this.InputForce.ChartAreas.Add(chartArea10);
+            this.InputForce.Location = new System.Drawing.Point(0, 29);
+            this.InputForce.Margin = new System.Windows.Forms.Padding(2);
+            this.InputForce.Name = "InputForce";
+            series10.ChartArea = "ChartArea1";
+            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series10.Name = "DataSeries";
+            this.InputForce.Series.Add(series10);
+            this.InputForce.Size = new System.Drawing.Size(1873, 165);
+            this.InputForce.TabIndex = 6;
+            this.InputForce.Text = "seconds,voltage";
+            title10.Name = "Title1";
+            title10.Text = "Input force (voltage)";
+            this.InputForce.Titles.Add(title10);
             // 
             // menuStrip1
             // 
@@ -187,7 +188,6 @@
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.liveToolStripMenuItem,
-            this.simulatedToolStripMenuItem,
             this.cSVToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(47, 23);
@@ -199,13 +199,6 @@
             this.liveToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.liveToolStripMenuItem.Text = "COM";
             this.liveToolStripMenuItem.Click += new System.EventHandler(this.liveToolStripMenuItem_Click);
-            // 
-            // simulatedToolStripMenuItem
-            // 
-            this.simulatedToolStripMenuItem.Name = "simulatedToolStripMenuItem";
-            this.simulatedToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.simulatedToolStripMenuItem.Text = "Simulated";
-            this.simulatedToolStripMenuItem.Click += new System.EventHandler(this.simulatedToolStripMenuItem_Click);
             // 
             // cSVToolStripMenuItem
             // 
@@ -227,60 +220,60 @@
             this.collectdata.Text = "Record (space)";
             this.collectdata.Click += new System.EventHandler(this.collectdata_Click);
             // 
-            // accpsd
+            // AccelerometerResponsePSD
             // 
-            chartArea5.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea5.AxisY.IsLogarithmic = true;
-            chartArea5.AxisY.Minimum = 0.01D;
-            chartArea5.Name = "ChartArea1";
-            this.accpsd.ChartAreas.Add(chartArea5);
-            this.accpsd.Location = new System.Drawing.Point(938, 559);
-            this.accpsd.Margin = new System.Windows.Forms.Padding(2);
-            this.accpsd.Name = "accpsd";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series5.Name = "Series1";
-            this.accpsd.Series.Add(series5);
-            this.accpsd.Size = new System.Drawing.Size(935, 165);
-            this.accpsd.TabIndex = 20;
-            this.accpsd.Text = "PSD";
-            title5.Name = "Title1";
-            title5.Text = "PSD (output)";
-            this.accpsd.Titles.Add(title5);
+            chartArea11.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea11.AxisY.IsLogarithmic = true;
+            chartArea11.AxisY.Minimum = 0.001D;
+            chartArea11.Name = "ChartArea1";
+            this.AccelerometerResponsePSD.ChartAreas.Add(chartArea11);
+            this.AccelerometerResponsePSD.Location = new System.Drawing.Point(938, 559);
+            this.AccelerometerResponsePSD.Margin = new System.Windows.Forms.Padding(2);
+            this.AccelerometerResponsePSD.Name = "AccelerometerResponsePSD";
+            series11.ChartArea = "ChartArea1";
+            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series11.Name = "Series1";
+            this.AccelerometerResponsePSD.Series.Add(series11);
+            this.AccelerometerResponsePSD.Size = new System.Drawing.Size(935, 165);
+            this.AccelerometerResponsePSD.TabIndex = 20;
+            this.AccelerometerResponsePSD.Text = "power,hz";
+            title11.Name = "Title1";
+            title11.Text = "PSD (output)";
+            this.AccelerometerResponsePSD.Titles.Add(title11);
             // 
-            // accfrf
+            // AccelerometerResponseFFT
             // 
-            chartArea6.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea6.AxisX.Title = "Hz";
-            chartArea6.AxisY.IsLogarithmic = true;
-            chartArea6.AxisY.Minimum = 0.01D;
-            chartArea6.Name = "ChartArea1";
-            this.accfrf.ChartAreas.Add(chartArea6);
-            this.accfrf.Location = new System.Drawing.Point(938, 390);
-            this.accfrf.Margin = new System.Windows.Forms.Padding(2);
-            this.accfrf.Name = "accfrf";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series6.Name = "Series1";
-            this.accfrf.Series.Add(series6);
-            this.accfrf.Size = new System.Drawing.Size(935, 165);
-            this.accfrf.TabIndex = 21;
-            this.accfrf.Text = "FRF";
-            title6.Name = "FFT";
-            title6.Text = "FFT (output)";
-            this.accfrf.Titles.Add(title6);
+            chartArea12.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea12.AxisX.Title = "Hz";
+            chartArea12.AxisY.IsLogarithmic = true;
+            chartArea12.AxisY.Minimum = 0.001D;
+            chartArea12.Name = "ChartArea1";
+            this.AccelerometerResponseFFT.ChartAreas.Add(chartArea12);
+            this.AccelerometerResponseFFT.Location = new System.Drawing.Point(938, 390);
+            this.AccelerometerResponseFFT.Margin = new System.Windows.Forms.Padding(2);
+            this.AccelerometerResponseFFT.Name = "AccelerometerResponseFFT";
+            series12.ChartArea = "ChartArea1";
+            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series12.Name = "Series1";
+            this.AccelerometerResponseFFT.Series.Add(series12);
+            this.AccelerometerResponseFFT.Size = new System.Drawing.Size(935, 165);
+            this.AccelerometerResponseFFT.TabIndex = 21;
+            this.AccelerometerResponseFFT.Text = "hz,magnitude";
+            title12.Name = "FFT";
+            title12.Text = "FFT (output)";
+            this.AccelerometerResponseFFT.Titles.Add(title12);
             // 
             // ModalTesterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1884, 961);
-            this.Controls.Add(this.accpsd);
-            this.Controls.Add(this.accfrf);
-            this.Controls.Add(this.lcpsd);
-            this.Controls.Add(this.lcfrf);
-            this.Controls.Add(this.acc);
-            this.Controls.Add(this.lc);
+            this.Controls.Add(this.AccelerometerResponsePSD);
+            this.Controls.Add(this.AccelerometerResponseFFT);
+            this.Controls.Add(this.InputForcePSD);
+            this.Controls.Add(this.InputForceFFT);
+            this.Controls.Add(this.AccelerometerResponse);
+            this.Controls.Add(this.InputForce);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.KeyPreview = true;
@@ -290,35 +283,34 @@
             this.Text = "Modal Tester";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ModalTesterForm_FormClosing);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ModalTesterForm_KeyUp);
-            ((System.ComponentModel.ISupportInitialize)(this.lcpsd)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lcfrf)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.acc)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lc)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InputForcePSD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InputForceFFT)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AccelerometerResponse)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InputForce)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.accpsd)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.accfrf)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AccelerometerResponsePSD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AccelerometerResponseFFT)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.DataVisualization.Charting.Chart lcpsd;
-        private System.Windows.Forms.DataVisualization.Charting.Chart lcfrf;
-        private System.Windows.Forms.DataVisualization.Charting.Chart lc;
-        private System.Windows.Forms.DataVisualization.Charting.Chart acc;
+        private System.Windows.Forms.DataVisualization.Charting.Chart InputForcePSD;
+        private System.Windows.Forms.DataVisualization.Charting.Chart InputForceFFT;
+        private System.Windows.Forms.DataVisualization.Charting.Chart InputForce;
+        private System.Windows.Forms.DataVisualization.Charting.Chart AccelerometerResponse;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportToCSVToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem liveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cSVToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem simulatedToolStripMenuItem;
         private System.Windows.Forms.ToolStripComboBox portlist;
         private System.Windows.Forms.ToolStripMenuItem collectdata;
-        private System.Windows.Forms.DataVisualization.Charting.Chart accpsd;
-        private System.Windows.Forms.DataVisualization.Charting.Chart accfrf;
+        private System.Windows.Forms.DataVisualization.Charting.Chart AccelerometerResponsePSD;
+        private System.Windows.Forms.DataVisualization.Charting.Chart AccelerometerResponseFFT;
     }
 }
 
