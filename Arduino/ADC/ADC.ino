@@ -24,14 +24,13 @@ void loop() {
   // iterate thru all channels
 
 
-  int val = adc.readADC(0);
-  Serial.println(val);
-  //Serial.print("\t");
-  // int val2 = adc.readADC(2);
-  // Serial.print(val2);
-  // Serial.print("\t");
+  int pot1 = adc.readADC(0);
+  int pot2 = adc.readADC(2);
+  Serial.print(pot1);
+  Serial.print(" ");
+  Serial.print(pot2);
 
-  //Serial.println("");
+  Serial.println();
 
 
 }
