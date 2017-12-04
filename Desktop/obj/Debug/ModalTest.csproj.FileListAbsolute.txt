@@ -20,3 +20,4 @@ C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.csproj.Genera
 C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.csproj.CoreCompileInputs.cache
 C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.exe
 C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.pdb
+C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.WaveGenForm.resources

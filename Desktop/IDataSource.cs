@@ -6,17 +6,12 @@ using System.Threading.Tasks;
 
 namespace ModalTest
 {
-    interface IInput
+    interface IDataSource
     {
         bool IsOpen { get; }
 
         void Close();
         void Dispose();
-
-        string PortName { get; set; }
-        int BaudRate { get; set; }
-        int ReadTimeout { get; set; }
-        int WriteTimeout { get; set; }
 
         void Open();
         string ReadLine();
