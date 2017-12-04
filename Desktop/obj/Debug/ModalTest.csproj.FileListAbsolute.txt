@@ -21,3 +21,4 @@ C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.csproj.CoreCo
 C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.exe
 C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.pdb
 C:\Users\me\Documents\repos\Modal-Test\Desktop\obj\Debug\ModalTest.WaveGenForm.resources
+D:\George Waskowicz\Documents\Github\Modal-Test\Desktop\obj\Debug\ModalTest.WaveGenForm.resources
