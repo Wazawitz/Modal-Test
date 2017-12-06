@@ -418,7 +418,7 @@ namespace ModalTest
             double samplerate = samples.Length / samples[samples.Length - 1].Real;
             double hzpersample = samplerate / samples.Length;
 
-            //TMessageBox("samplerate: " + samplerate);
+            TMessageBox("samplerate: " + samplerate);
 
             ManagedFourierTransformProvider fp = new ManagedFourierTransformProvider();
 

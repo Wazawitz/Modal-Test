@@ -1,0 +1,9 @@
+c:\users\me\documents\visual studio 2017\Projects\Com Read Test\Com Read Test\bin\Debug\Com Read Test.exe.config
+c:\users\me\documents\visual studio 2017\Projects\Com Read Test\Com Read Test\bin\Debug\Com Read Test.exe
+c:\users\me\documents\visual studio 2017\Projects\Com Read Test\Com Read Test\bin\Debug\Com Read Test.pdb
+c:\users\me\documents\visual studio 2017\Projects\Com Read Test\Com Read Test\bin\Debug\RobustIO.dll
+c:\users\me\documents\visual studio 2017\Projects\Com Read Test\Com Read Test\bin\Debug\RobustIO.pdb
+c:\users\me\documents\visual studio 2017\Projects\Com Read Test\Com Read Test\obj\Debug\Com Read Test.csprojResolveAssemblyReference.cache
+c:\users\me\documents\visual studio 2017\Projects\Com Read Test\Com Read Test\obj\Debug\Com Read Test.csproj.CoreCompileInputs.cache
+c:\users\me\documents\visual studio 2017\Projects\Com Read Test\Com Read Test\obj\Debug\Com Read Test.exe
+c:\users\me\documents\visual studio 2017\Projects\Com Read Test\Com Read Test\obj\Debug\Com Read Test.pdb
