@@ -301,22 +301,24 @@ namespace ModalTest
         {
             while (COMFeed)
             {
-                CorrectErrors();
+                CorrectErrors(InputForce);
+                CorrectErrors(AccelerometerResponse);
+                Thread.Sleep(500);
             }
         }
 
-        private void CorrectErrors()
+        private void CorrectErrors(Chart c)
         {
             try
             {
-                for (int l = InputForce.Series[0].Points.Count; l > 2; l--)
+                for (int l = c.Series[0].Points.Count; l > 2; l--)
                 {
-                    if (InputForce.Series[0].Points.Count > 1 && Math.Abs(InputForce.Series[0].Points[l - 1].XValue - InputForce.Series[0].Points[l - 2].XValue) > 0.5)
+                    if (c.Series[0].Points.Count > 1 && Math.Abs(c.Series[0].Points[l - 1].XValue - c.Series[0].Points[l - 2].XValue) > 0.5)
                     {
-                        InputForce.PerformSafely(() =>
+                        c.PerformSafely(() =>
                         {
-                            DataPoint d = InputForce.Series[0].Points[l - 1]; //currently looked at
-                            DataPoint d2 = InputForce.Series[0].Points[l - 2]; //previous
+                            DataPoint d = c.Series[0].Points[l - 1]; //currently looked at
+                            DataPoint d2 = c.Series[0].Points[l - 2]; //previous
                             double old = d.XValue;
 
                             //gonna make a loop to change the target, because the errors are the time always being off by a multiple of 10.
@@ -332,7 +334,7 @@ namespace ModalTest
                             for (; Math.Abs(d.XValue - d2.XValue) > 0.5; d.XValue = d.XValue * Math.Pow(10, direction)) { }
 
                         });
-                        break;
+                        //break;
                     }
                 }
             }
@@ -354,6 +356,9 @@ namespace ModalTest
                 try
                 {
                     double t = (double)graphtime;
+                    double t2 = t - 0.5;
+                    t2 = t2 > 0 ? t2 : 0; // if t2 >0 t2 = 0;
+
                     string dd = SelectedPort.ReadLine();
                     //TMessageBox(dd);
 
@@ -367,7 +372,8 @@ namespace ModalTest
 
                         if (COMFeed && !DataRecording)
                         {
-                            InputForce.ChartAreas[0].AxisX.Minimum = (double)t - 0.5;
+                            //CorrectErrors(InputForce);
+                            InputForce.ChartAreas[0].AxisX.Minimum = t2;
                         }
                     });
 
@@ -378,7 +384,8 @@ namespace ModalTest
 
                         if (COMFeed && !DataRecording)
                         {
-                            AccelerometerResponse.ChartAreas[0].AxisX.Minimum = (double)t - 0.5;
+                            //CorrectErrors(AccelerometerResponse);
+                            AccelerometerResponse.ChartAreas[0].AxisX.Minimum = t2;
                         }
                     });
                 }
@@ -423,7 +430,7 @@ namespace ModalTest
             {
                 fft.ChartAreas[0].AxisY.Maximum = 0;
 
-                for (int i = 1; i < samples.Length / 2; i++)
+                for (int i = 1; i < samples.Length / 5; i++)
                 {
                     double magnitude = (2.0 / samples.Length) * (Math.Abs(Math.Sqrt(Math.Pow(samples[i].Real, 2) + Math.Pow(samples[i].Imaginary, 2))));
 

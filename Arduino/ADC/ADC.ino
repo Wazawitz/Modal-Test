@@ -31,6 +31,7 @@ void loop() {
   Serial.print(pot2);
 
   Serial.println();
+  delay(1);
 
 
 }
