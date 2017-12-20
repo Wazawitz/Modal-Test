@@ -34,3 +34,15 @@ C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\obj\Debug\ModalTest.cs
 C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\obj\Debug\ModalTest.csproj.CoreCompileInputs.cache
 C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\obj\Debug\ModalTest.exe
 C:\Users\geowa_000\Documents\GitKraken\Modal-Test\Desktop\obj\Debug\ModalTest.pdb
+C:\Users\geowa_000\Desktop\Modal-Test\Desktop\bin\Debug\ModalTest.exe.config
+C:\Users\geowa_000\Desktop\Modal-Test\Desktop\bin\Debug\ModalTest.exe
+C:\Users\geowa_000\Desktop\Modal-Test\Desktop\bin\Debug\ModalTest.pdb
+C:\Users\geowa_000\Desktop\Modal-Test\Desktop\bin\Debug\MathNet.Numerics.dll
+C:\Users\geowa_000\Desktop\Modal-Test\Desktop\obj\Debug\ModalTest.csprojResolveAssemblyReference.cache
+C:\Users\geowa_000\Desktop\Modal-Test\Desktop\obj\Debug\ModalTest.ModalTesterForm.resources
+C:\Users\geowa_000\Desktop\Modal-Test\Desktop\obj\Debug\ModalTest.Properties.Resources.resources
+C:\Users\geowa_000\Desktop\Modal-Test\Desktop\obj\Debug\ModalTest.WaveGenForm.resources
+C:\Users\geowa_000\Desktop\Modal-Test\Desktop\obj\Debug\ModalTest.csproj.GenerateResource.Cache
+C:\Users\geowa_000\Desktop\Modal-Test\Desktop\obj\Debug\ModalTest.csproj.CoreCompileInputs.cache
+C:\Users\geowa_000\Desktop\Modal-Test\Desktop\obj\Debug\ModalTest.exe
+C:\Users\geowa_000\Desktop\Modal-Test\Desktop\obj\Debug\ModalTest.pdb
